@@ -11,6 +11,8 @@ public class Horse
     char horseSymbol;
     String horseName;
     double horseConfidence;
+    boolean fallen;
+    int distanceTravelled;
     
 
     //Constructor of class Horse
@@ -19,7 +21,11 @@ public class Horse
      */
     public Horse(char horseSymbol, String horseName, double horseConfidence)
     {
-       
+       this.horseSymbol = horseSymbol;
+       this.horseName = horseName;
+       this.horseConfidence = horseConfidence;
+       this.fallen = false;
+       this.distanceTravelled = 0;
     }
     
     
