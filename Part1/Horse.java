@@ -9,7 +9,7 @@ public class Horse
 {
     //Fields of class Horse
     private char horseSymbol;
-    private tring horseName;
+    private String horseName;
     private double horseConfidence;
     private boolean fallen;
     private int distanceTravelled;
@@ -23,7 +23,7 @@ public class Horse
     {
        this.horseSymbol = horseSymbol;
        this.horseName = horseName;
-       this.horseConfidence = setConfidence(horseConfidence);
+       setConfidence(horseConfidence);
        this.fallen = false;
        this.distanceTravelled = 0;
     }
