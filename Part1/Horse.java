@@ -2,17 +2,17 @@
 /**
  * Write a description of class Horse here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Lee En Yee 
+ * @version 1
  */
 public class Horse
 {
     //Fields of class Horse
-    char horseSymbol;
-    String horseName;
-    double horseConfidence;
-    boolean fallen;
-    int distanceTravelled;
+    private char horseSymbol;
+    private tring horseName;
+    private double horseConfidence;
+    private boolean fallen;
+    private int distanceTravelled;
     
 
     //Constructor of class Horse
@@ -23,17 +23,15 @@ public class Horse
     {
        this.horseSymbol = horseSymbol;
        this.horseName = horseName;
-       this.horseConfidence = horseConfidence;
+       this.horseConfidence = setConfidence(horseConfidence);
        this.fallen = false;
        this.distanceTravelled = 0;
     }
     
-    
-    
     //Other methods of class Horse
     public void fall()
     {
-        
+        this.fallen = true;
     }
     
     public double getConfidence()
@@ -43,7 +41,7 @@ public class Horse
     
     public int getDistanceTravelled()
     {
-        
+        return this.distanceTravelled;
     }
     
     public String getName()
@@ -58,27 +56,34 @@ public class Horse
     
     public void goBackToStart()
     {
-        
+        this.distanceTravelled = 0;
     }
     
     public boolean hasFallen()
     {
-        
+        return this.fallen;
     }
 
     public void moveForward()
     {
-        
+        if(!this.fallen){
+            this.distanceTravelled++;
+        }
     }
 
     public void setConfidence(double newConfidence)
     {
-        this.horseConfidence = newConfidence;
+        if(newConfidence >= 0.0 && newConfidence <= 1.0){
+            this.horseConfidence = newConfidence;
+        }
+        else{
+            System.out.println("Confidence rating must be between 0.0 and 1.0.");
+        }
+        
     }
     
     public void setSymbol(char newSymbol)
     {
         this.horseSymbol = newSymbol;
     }
-    
 }
