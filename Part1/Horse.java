@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 /**
  * Write a description of class Horse here.
@@ -36,7 +37,7 @@ public class Horse
     
     public double getConfidence()
     {
-        return horseConfidence;
+        return this.horseConfidence;
     }
     
     public int getDistanceTravelled()
@@ -74,13 +75,11 @@ public class Horse
 
     public void setConfidence(double newConfidence)
     {
-        if(newConfidence >= 0.0 && newConfidence <= 1.0){
-            this.horseConfidence = newConfidence;
-        }
-        else{
+        if(newConfidence < 0.0 || newConfidence > 1.0){
             System.out.println("Confidence rating must be between 0.0 and 1.0.");
         }
-        
+
+        this.horseConfidence = newConfidence;
     }
     
     public void setSymbol(char newSymbol)
