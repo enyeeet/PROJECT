@@ -56,6 +56,15 @@ public class Race
         }
     }
     
+    private boolean allHorsesHaveValidConfidence() {
+        return isConfidenceValid(lane1Horse) && isConfidenceValid(lane2Horse) && isConfidenceValid(lane3Horse);
+    }
+
+    // Method to check if a horse has a valid confidence rating
+    private boolean isConfidenceValid(Horse horse) {
+        return horse != null && horse.getConfidence() >= 0.0 && horse.getConfidence() <= 1.0;
+    }
+
     /**
      * Start the race
      * The horse are brought to the start and
@@ -64,6 +73,11 @@ public class Race
      */
     public void startRace()
     {
+        if(!allHorsesHaveValidConfidence()){
+            System.out.println("Cannot start race as not all horses have a valid confidence rating.");
+            return;
+        }
+        
         //declare a local variable to tell us when the race is finished
         boolean finished = false;
         
@@ -85,6 +99,12 @@ public class Race
             //if any of the three horses has won the race is finished
             if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
             {
+                finished = true;
+            }
+
+            if (lane1Horse.hasFallen() && lane2Horse.hasFallen() && lane3Horse.hasFallen())
+            {
+                System.out.println("All horses have fallen! The race is over.");
                 finished = true;
             }
            
