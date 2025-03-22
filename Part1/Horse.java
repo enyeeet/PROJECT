@@ -96,6 +96,7 @@ public class Horse
         else {
             this.horseConfidence += amount;
         }
+        this.horseConfidence = roundUpToTwoDP(this.horseConfidence);
     }
 
     // Decrease confidence after falling
@@ -107,5 +108,10 @@ public class Horse
         else {
             this.horseConfidence -= amount;
         }
+        this.horseConfidence = roundUpToTwoDP(this.horseConfidence);
+    }
+
+    private double roundUpToTwoDP(double value) {
+        return Math.round(value * 100.0) / 100.0;
     }
 }
