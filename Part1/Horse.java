@@ -33,6 +33,7 @@ public class Horse
     public void fall()
     {
         this.fallen = true;
+        decreaseConfidence(0.05);
     }
     
     public double getConfidence()
@@ -85,5 +86,26 @@ public class Horse
     public void setSymbol(char newSymbol)
     {
         this.horseSymbol = newSymbol;
+    }
+
+    public void increaseConfidence(double amount) {
+        if (this.horseConfidence + amount > 1.0) {
+            this.horseConfidence = 1.0;
+            System.out.println(this.getName() + " already has maximum confidence.");
+        } 
+        else {
+            this.horseConfidence += amount;
+        }
+    }
+
+    // Decrease confidence after falling
+    public void decreaseConfidence(double amount) {
+        if (this.horseConfidence - amount < 0.0) {
+            this.horseConfidence = 0.0; 
+            System.out.println(this.getName() + " already has no confidence....");
+        } 
+        else {
+            this.horseConfidence -= amount;
+        }
     }
 }
