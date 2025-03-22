@@ -120,6 +120,7 @@ public class Race
 
             if(winner != null){
                 System.out.println("And the winner is... " + winner.getName().toUpperCase()+ "!!!");
+                winner.increaseConfidence(0.05);
             }
         }
     }
