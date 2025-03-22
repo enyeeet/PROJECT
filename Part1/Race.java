@@ -57,11 +57,11 @@ public class Race
     }
     
     private boolean allHorsesHaveValidConfidence() {
-        return isConfidenceValid(lane1Horse) && isConfidenceValid(lane2Horse) && isConfidenceValid(lane3Horse);
+        return isValidConfidence(lane1Horse) && isValidConfidence(lane2Horse) && isValidConfidence(lane3Horse);
     }
 
     // Method to check if a horse has a valid confidence rating
-    private boolean isConfidenceValid(Horse horse) {
+    private boolean isValidConfidence(Horse horse) {
         return horse != null && horse.getConfidence() >= 0.0 && horse.getConfidence() <= 1.0;
     }
 
@@ -77,7 +77,7 @@ public class Race
             System.out.println("Cannot start race as not all horses have a valid confidence rating.");
             return;
         }
-        
+
         //declare a local variable to tell us when the race is finished
         boolean finished = false;
         
@@ -112,6 +112,15 @@ public class Race
             try{ 
                 TimeUnit.MILLISECONDS.sleep(100);
             }catch(Exception e){}
+
+            Horse winner = null;
+            if(raceWonBy(lane1Horse)) winner = lane1Horse;
+            else if(raceWonBy(lane2Horse)) winner = lane2Horse;
+            else if(raceWonBy(lane3Horse)) winner = lane3Horse;
+
+            if(winner != null){
+                System.out.println("And the winner is... " + winner.getName().toUpperCase()+ "!!!");
+            }
         }
     }
     
@@ -208,7 +217,7 @@ public class Race
         //else print the horse's symbol
         if(theHorse.hasFallen())
         {
-            System.out.print('\u2322');
+            System.out.print('X');
         }
         else
         {
@@ -219,7 +228,7 @@ public class Race
         multiplePrint(' ',spacesAfter);
         
         //print the | for the end of the track
-        System.out.print('|');
+        System.out.print('|' + "  " + theHorse.getName().toUpperCase() + " (Current confidence " + theHorse.getConfidence() + ")");
     }
         
     
