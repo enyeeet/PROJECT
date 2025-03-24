@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 /**
  * Write a description of class Horse here.
  * 
