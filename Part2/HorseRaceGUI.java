@@ -1,5 +1,6 @@
 package Part2;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,75 +8,101 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 public class HorseRaceGUI {
 
     JFrame frame;
-    JPanel title;
+    JPanel titlePanel;
+    JPanel mainPanel;
     JPanel startMenu;
+    JPanel buttonPanel;
     JLabel gameTitle;
     JButton startRaceButton;
     JButton designButton;
     JButton betButton;
     JButton statsButton;
+    CardLayout cardLayout;
 
     HorseRaceGUI(){
         frame = new JFrame("Horse Racing Simulator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
         frame.setSize(600, 600);
         
+        cardLayout = new CardLayout();   //switching between 'pages'
+        mainPanel = new JPanel();
+        mainPanel.setLayout(cardLayout);
+
+        createStartMenu();
+
+        mainPanel.add(startMenu, "START MENU");
+        mainPanel.add(new StartRace(this), "STARTING A RACE");
+
+        frame.add(mainPanel);
+        frame.setVisible(true);
+    }
+
+    private void createStartMenu(){
         gameTitle = new JLabel("TITLE", SwingConstants.CENTER);
         gameTitle.setFont(new Font(null, Font.BOLD, 40));
         
-        title = new JPanel();
-        title.setLayout(new GridBagLayout());
-        title.setBackground(Color.GRAY);
-        title.setPreferredSize(new Dimension(200, 120));
-        
+        titlePanel = new JPanel();
+        titlePanel.setLayout(new GridBagLayout());
+        titlePanel.setBackground(Color.GRAY);
+        titlePanel.setPreferredSize(new Dimension(200, 120));
 
-        //Buttons
+        titlePanel.add(gameTitle);
+    
 
         startMenu = new JPanel();
-        startMenu.setLayout(null);
+        startMenu.setLayout(new BorderLayout());
         startMenu.setBackground(Color.WHITE);
         startMenu.setPreferredSize(new Dimension(50, 450));
 
-        startRaceButton = new JButton();
-        startRaceButton.setBounds(200,70,200,70);
+        ///////////BUTTONS
+
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        buttonPanel.setBackground(Color.WHITE);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 150, 20, 150));
+
+        Font buttonFont = new Font("Arial", Font.BOLD, 15);
+
+        startRaceButton = new JButton("Start A Race");
         startRaceButton.setFocusable(false);
-        startRaceButton.setText("Start A Race");
+        startRaceButton.setFont(buttonFont);
 
-        designButton = new JButton();
-        designButton.setBounds(200, 150, 200, 70);
+        designButton = new JButton("Design Your Lanes & Horses");
         designButton.setFocusable(false);
-        designButton.setText("Design Your Lanes & Horses");
-
-        betButton = new JButton();
-        betButton.setBounds(200, 230, 200, 70);
+        designButton.setFont(buttonFont);
+        
+        betButton = new JButton("Place Your Bets");
         betButton.setFocusable(false);
-        betButton.setText("Place Your Bets");
+        betButton.setFont(buttonFont);
 
-        statsButton = new JButton();
-        statsButton.setBounds(200, 310, 200, 70);
+        statsButton = new JButton("Statistics");
         statsButton.setFocusable(false);
-        statsButton.setText("Statistics");
+        statsButton.setFont(buttonFont);
 
-        //////////////////////
+        buttonPanel.add(startRaceButton);
+        buttonPanel.add(designButton);
+        buttonPanel.add(betButton);
+        buttonPanel.add(statsButton);
 
-        title.add(gameTitle);
+        startRaceButton.addActionListener(e -> cardLayout.show(mainPanel, "STARTING A RACE"));
 
-        startMenu.add(startRaceButton);
-        startMenu.add(designButton);
-        startMenu.add(betButton);
-        startMenu.add(statsButton);
+        ////////////////////////////////
+        
+        startMenu.add(titlePanel, BorderLayout.NORTH);
+        startMenu.add(buttonPanel, BorderLayout.CENTER);
+    }
 
-        frame.add(title, BorderLayout.NORTH);
-        frame.add(startMenu, BorderLayout.CENTER);
-        frame.setVisible(true);
+    public void showStartMenu(){
+        cardLayout.show(mainPanel, "START MENU");
     }
 }
