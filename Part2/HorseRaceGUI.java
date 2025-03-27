@@ -41,7 +41,8 @@ public class HorseRaceGUI {
         createStartMenu();
 
         mainPanel.add(startMenu, "START MENU");
-        mainPanel.add(new StartRace(this), "STARTING A RACE");
+        mainPanel.add(new StartRace(this), "RACE PAGE");
+        mainPanel.add(new DesignPage(this), "DESIGN PAGE");
 
         frame.add(mainPanel);
         frame.setVisible(true);
@@ -94,7 +95,8 @@ public class HorseRaceGUI {
         buttonPanel.add(betButton);
         buttonPanel.add(statsButton);
 
-        startRaceButton.addActionListener(e -> cardLayout.show(mainPanel, "STARTING A RACE"));
+        startRaceButton.addActionListener(e -> cardLayout.show(mainPanel, "RACE PAGE"));
+        designButton.addActionListener(e -> cardLayout.show(mainPanel, "DESIGN PAGE"));
 
         ////////////////////////////////
         
