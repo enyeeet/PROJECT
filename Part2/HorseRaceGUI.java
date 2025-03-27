@@ -32,7 +32,8 @@ public class HorseRaceGUI {
     HorseRaceGUI(){
         frame = new JFrame("Horse Racing Simulator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 600);
+        frame.setSize(700, 600);
+        frame.setResizable(false);
         
         cardLayout = new CardLayout();   //switching between 'pages'
         mainPanel = new JPanel();
@@ -42,7 +43,8 @@ public class HorseRaceGUI {
 
         mainPanel.add(startMenu, "START MENU");
         mainPanel.add(new StartRace(this), "RACE PAGE");
-        mainPanel.add(new DesignPage(this), "DESIGN PAGE");
+        mainPanel.add(new DesignPage(this), "LANE DESIGN PAGE");
+        mainPanel.add(new HorseDesignPage(this), "HORSE DESIGN PAGE");
 
         frame.add(mainPanel);
         frame.setVisible(true);
@@ -70,7 +72,7 @@ public class HorseRaceGUI {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
         buttonPanel.setBackground(Color.WHITE);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 150, 20, 150));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 200, 20, 200));
 
         Font buttonFont = new Font("Arial", Font.BOLD, 15);
 
@@ -96,7 +98,7 @@ public class HorseRaceGUI {
         buttonPanel.add(statsButton);
 
         startRaceButton.addActionListener(e -> cardLayout.show(mainPanel, "RACE PAGE"));
-        designButton.addActionListener(e -> cardLayout.show(mainPanel, "DESIGN PAGE"));
+        designButton.addActionListener(e -> cardLayout.show(mainPanel, "LANE DESIGN PAGE"));
 
         ////////////////////////////////
         
@@ -106,5 +108,13 @@ public class HorseRaceGUI {
 
     public void showStartMenu(){
         cardLayout.show(mainPanel, "START MENU");
+    }
+
+    public void showHorseDesignPage(){
+        cardLayout.show(mainPanel, "HORSE DESIGN PAGE");
+    }
+
+    public void showDesignPage(){
+        cardLayout.show(mainPanel, "LANE DESIGN PAGE");
     }
 }
