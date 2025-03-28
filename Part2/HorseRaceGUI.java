@@ -1,5 +1,7 @@
 package Part2;
 
+import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,6 +30,13 @@ public class HorseRaceGUI {
     JButton betButton;
     JButton statsButton;
     CardLayout cardLayout;
+    private int noOfLanes;
+    private int trackLength;
+    private String trackLengthUnit;
+    private String trackShape;
+    private String trackCondition;
+
+    private ArrayList<HorseDesignPage> totalHorseDesignPages;
 
     HorseRaceGUI(){
         frame = new JFrame("Horse Racing Simulator");
@@ -39,12 +48,14 @@ public class HorseRaceGUI {
         mainPanel = new JPanel();
         mainPanel.setLayout(cardLayout);
 
+        totalHorseDesignPages = new ArrayList<>();
+
         createStartMenu();
 
         mainPanel.add(startMenu, "START MENU");
         mainPanel.add(new StartRace(this), "RACE PAGE");
-        mainPanel.add(new DesignPage(this), "LANE DESIGN PAGE");
-        mainPanel.add(new HorseDesignPage(this), "HORSE DESIGN PAGE");
+        mainPanel.add(new LaneDesignPage(this), "LANE DESIGN PAGE");
+        //mainPanel.add(new HorseDesignPage(this), "HORSE DESIGN PAGE");
 
         frame.add(mainPanel);
         frame.setVisible(true);
@@ -99,19 +110,43 @@ public class HorseRaceGUI {
 
         startRaceButton.addActionListener(e -> cardLayout.show(mainPanel, "RACE PAGE"));
         designButton.addActionListener(e -> cardLayout.show(mainPanel, "LANE DESIGN PAGE"));
-
+        
         ////////////////////////////////
         
         startMenu.add(titlePanel, BorderLayout.NORTH);
         startMenu.add(buttonPanel, BorderLayout.CENTER);
     }
 
+    public void saveLaneSettings(int noOfLanes, int trackLength, String trackLengthUnit, String trackShape, String trackCondition){
+        this.noOfLanes = noOfLanes;
+        this.trackLength = trackLength;
+        this.trackLengthUnit = trackLengthUnit;
+        this.trackShape = trackShape;
+        this.trackCondition = trackCondition;
+
+        createHorseDesignPage();
+    }
+
+    public void createHorseDesignPage(){
+        totalHorseDesignPages.clear();
+
+        for(int i=1; i<= noOfLanes; i++){
+            HorseDesignPage horseDesignPage = new HorseDesignPage(this, i);
+            totalHorseDesignPages.add(horseDesignPage);
+            mainPanel.add(horseDesignPage, "HORSE DESIGN PAGE " + i);
+        }
+    }
+
+    public ArrayList<HorseDesignPage> getTotalHorseDesignPages() {
+        return totalHorseDesignPages;
+    }
+    
     public void showStartMenu(){
         cardLayout.show(mainPanel, "START MENU");
     }
 
     public void showHorseDesignPage(){
-        cardLayout.show(mainPanel, "HORSE DESIGN PAGE");
+        cardLayout.show(mainPanel, "HORSE DESIGN PAGE 1");
     }
 
     public void showDesignPage(){
