@@ -30,11 +30,6 @@ public class LaneDesignPage extends JPanel{
     JComboBox<String> lengthUnit;
     JComboBox<String> shapeInput;
     JComboBox<String> trackConditions;
-    private int noOfLanes;
-    private int trackLength;
-    private String trackLengthUnit;
-    private String trackShape;
-    private String trackCondition;
 
     LaneDesignPage(HorseRaceGUI mainGUI){
 
@@ -209,6 +204,9 @@ public class LaneDesignPage extends JPanel{
         return; 
         }
 
+        int noOfLanes;
+        int trackLength;
+
         try{
             noOfLanes = Integer.parseInt(laneInput.getText().trim());
             trackLength = Integer.parseInt(lengthInput.getText().trim());
@@ -219,9 +217,9 @@ public class LaneDesignPage extends JPanel{
             return;
         }
 
-        trackLengthUnit = (String) lengthUnit.getSelectedItem();
-        trackShape = (String) shapeInput.getSelectedItem();
-        trackCondition = (String) trackConditions.getSelectedItem();
+        String trackLengthUnit = (String) lengthUnit.getSelectedItem();
+        String trackShape = (String) shapeInput.getSelectedItem();
+        String trackCondition = (String) trackConditions.getSelectedItem();
 
         int choice = JOptionPane.showConfirmDialog(this,
             "Are you sure you want to save these settings?\n"
@@ -233,6 +231,7 @@ public class LaneDesignPage extends JPanel{
 
         if (choice == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(this, "Selections Saved Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE); 
+            mainGUI.saveLaneSettings(noOfLanes, trackLength, trackLengthUnit, trackShape, trackCondition);
             mainGUI.showHorseDesignPage();                                                       
         }
     }
