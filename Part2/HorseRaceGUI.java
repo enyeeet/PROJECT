@@ -37,6 +37,7 @@ public class HorseRaceGUI {
     private String trackCondition;
 
     private ArrayList<HorseDesignPage> totalHorseDesignPages;
+    private ArrayList<HorseData> horseDataList;
 
     HorseRaceGUI(){
         frame = new JFrame("Horse Racing Simulator");
@@ -49,13 +50,13 @@ public class HorseRaceGUI {
         mainPanel.setLayout(cardLayout);
 
         totalHorseDesignPages = new ArrayList<>();
+        horseDataList = new ArrayList<>();
 
         createStartMenu();
 
         mainPanel.add(startMenu, "START MENU");
         mainPanel.add(new StartRace(this), "RACE PAGE");
         mainPanel.add(new LaneDesignPage(this), "LANE DESIGN PAGE");
-        //mainPanel.add(new HorseDesignPage(this), "HORSE DESIGN PAGE");
 
         frame.add(mainPanel);
         frame.setVisible(true);
@@ -135,6 +136,18 @@ public class HorseRaceGUI {
             totalHorseDesignPages.add(horseDesignPage);
             mainPanel.add(horseDesignPage, "HORSE DESIGN PAGE " + i);
         }
+    }
+
+    public void saveHorseSettings(HorseData horseData, int index) {
+        if (index - 1 < horseDataList.size()) {
+            horseDataList.set(index - 1, horseData);
+        } else {
+            horseDataList.add(horseData);
+        }
+    }
+    
+    public ArrayList<HorseData> getHorseDataList() {
+        return horseDataList;
     }
 
     public ArrayList<HorseDesignPage> getTotalHorseDesignPages() {
