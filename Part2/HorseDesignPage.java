@@ -12,22 +12,21 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 public class HorseDesignPage extends JPanel{
 
     private HorseRaceGUI mainGUI;
     private int noOfHorses;
 
-
-    JPanel titlePanel;
-    JPanel inputPanel;
+    Font labelFont = new Font("Calibri", Font.BOLD, 20);
+    Font comboBoxFont = new Font(null, Font.PLAIN, 15);
 
     HorseDesignPage(HorseRaceGUI mainGUI, int noOfHorses){
         this.mainGUI = mainGUI;
@@ -36,6 +35,7 @@ public class HorseDesignPage extends JPanel{
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
         createHorse();
+        addEquipment();
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
@@ -71,36 +71,223 @@ public class HorseDesignPage extends JPanel{
     }
 
     private void createHorse(){
-        JLabel horseTitle = new JLabel("Step 2: Horses");
-        horseTitle.setFont(new Font(null, Font.ITALIC, 30));
+        JLabel horseTitle = new JLabel("Horses");
+        horseTitle.setFont(new Font("Ink Free", Font.BOLD, 60));
 
-        titlePanel = new JPanel(new GridBagLayout());
-        titlePanel.setBackground(Color.LIGHT_GRAY);
+        JPanel titlePanel = new JPanel(new GridBagLayout());
+        titlePanel.setBackground(Color.WHITE);
         titlePanel.setPreferredSize(new Dimension(200, 120));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(90, 0, 0, 0));
 
         titlePanel.add(horseTitle);
         add(titlePanel, BorderLayout.NORTH);
 
-        inputPanel = new JPanel(new GridBagLayout());
+        JPanel leftInputPanel = new JPanel(new GridBagLayout());
+        leftInputPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15,15,15,15);
 
-        Font labelFont = new Font("Calibri", Font.BOLD, 20);
+        JLabel sectionLabel = new JLabel("<html><u>Base Attributes<u><html>");
+        sectionLabel.setFont(new Font(null, Font.PLAIN, 15));
 
-        JLabel horseName = new JLabel("Horse Name:   ");
+        JLabel horseName = new JLabel("Name:");
         horseName.setFont(labelFont);
-        JTextField horseNameInput = new JTextField(8);
-        horseNameInput.setFont(new Font("Arial", Font.PLAIN, 15));
+        JTextField horseNameInput = new JTextField(9);
+        horseNameInput.setFont(new Font(null, Font.PLAIN, 15));
         horseNameInput.setText("Horse " + noOfHorses);
 
+        JLabel horseBreed = new JLabel("Breed:");
+        horseBreed.setFont(labelFont);
+        JComboBox <String> breedInput = new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse"});
+        breedInput.setPreferredSize(new Dimension(120, 25));
+        breedInput.setFont(comboBoxFont);
+
+        JLabel coatColour = new JLabel("Coat Colour:");
+        coatColour.setFont(labelFont);
+        JComboBox <String> coatColourInput = new JComboBox<>(new String[]{"Brown", "Black", "Grey", "White"});
+        coatColourInput.setPreferredSize(new Dimension(120,25));
+        coatColourInput.setFont(comboBoxFont);
+
+        JLabel symbol = new JLabel("Symbol:");
+        symbol.setFont(labelFont);
+        JComboBox <String> symbolInput = new JComboBox<>(new String[]{"🏇", "🦄", "♞"});
+        symbolInput.setPreferredSize(new Dimension(120, 25));
+        symbolInput.setFont(new Font(null, Font.PLAIN, 20));
+
+        JLabel breedAttributes = new JLabel("<html><u>Breed Attributes<u><html>");
+        breedAttributes.setForeground(Color.BLUE);
+        breedAttributes.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        breedAttributes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                JOptionPane.showMessageDialog(breedInput, """
+                        Thoroughbred:  Speed ↓  Stamina ↑
+                        Arabian:  Speed ↑  Stamina ↓ Horse confidence ↑
+                        Quarter Horse:   Speed ↑
+
+                        """, "Breed Attributes", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        ////////////////////
+        /// 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        inputPanel.add(horseName, gbc);
+        gbc.gridwidth = 2;
+        leftInputPanel.add(sectionLabel, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        leftInputPanel.add(horseName, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
-        inputPanel.add(horseNameInput);
+        gbc.gridy = 1;
+        leftInputPanel.add(horseNameInput, gbc);
 
-        add(inputPanel, BorderLayout.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        leftInputPanel.add(horseBreed, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        leftInputPanel.add(breedInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        leftInputPanel.add(coatColour, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        leftInputPanel.add(coatColourInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        leftInputPanel.add(symbol, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        leftInputPanel.add(symbolInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        leftInputPanel.add(breedAttributes, gbc);
+
+        ////////////////////
+        
+        add(leftInputPanel, BorderLayout.WEST);
+    }
+
+    private void addEquipment(){
+        
+        JPanel rightInputPanel = new JPanel(new GridBagLayout());
+        rightInputPanel.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(15,15,15,15);
+
+        JLabel saddleTypeLabel = new JLabel("<html><u>Design<u><html>");
+        saddleTypeLabel.setFont(new Font(null, Font.PLAIN, 15));
+        JLabel saddleColourLabel = new JLabel("<html><u>Colour<u><html>");
+        saddleColourLabel.setFont(new Font(null, Font.PLAIN, 15));
+        
+        JLabel saddle = new JLabel("Saddle:");
+        saddle.setFont(labelFont);
+        JComboBox <String> saddleDesignInput = new JComboBox<>(new String[]{"Dressage", "Jumping", "All-Purpose", "Endurance", "Racing", "Polo"});
+        saddleDesignInput.setFont(comboBoxFont);
+        saddleDesignInput.setPreferredSize(new Dimension(120,25));
+        
+        JComboBox <String> saddleColourInput = new JComboBox<>(new String[]{"Black", "White", "Pink", "Brown"});
+        saddleColourInput.setFont(comboBoxFont);
+        saddleColourInput.setPreferredSize(new Dimension(80,24));
+        
+
+        JLabel horseShoes = new JLabel("Horseshoes:");
+        horseShoes.setFont(labelFont);
+        JComboBox <String> horseShoesInput = new JComboBox<>(new String[]{"Regular", "Aluminum", "Steel", "Stick-On"});
+        horseShoesInput.setFont(comboBoxFont);
+        horseShoesInput.setPreferredSize(new Dimension(120,25));
+
+        JLabel bridle = new JLabel("Bridle:");
+        bridle.setFont(labelFont);
+        JComboBox <String> bridleInput = new JComboBox<>(new String[]{"Snaffle", "Double", "Bitless"});
+        bridleInput.setFont(comboBoxFont);
+        bridleInput.setPreferredSize(new Dimension(120,25));
+
+        JLabel hat = new JLabel("Hat:");
+        hat.setFont(labelFont);
+        JComboBox <String> hatInput = new JComboBox<>(new String[]{"Top Hat 🎩", "Cowboy Hat", "Straw Hat 👒", "Sombrero"});
+        hatInput.setFont(comboBoxFont);
+        hatInput.setPreferredSize(new Dimension(120,25));
+
+        JLabel equipmentEffects = new JLabel("<html><u>Horseshoe Effects<u><html>");
+        equipmentEffects.setForeground(Color.BLUE);
+        equipmentEffects.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        equipmentEffects.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                JOptionPane.showMessageDialog(horseShoesInput, """
+                        Regular:  *No effect on original attributes*
+                        Aluminum:  Speed ↑  Risk of falling ↑
+                        Steel:   Stamina ↓ Risk of falling ↓
+                        Stick-On: Stamina ↑  Horse confidence ↑
+
+                        """, "Horseshoe Effects", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        ///////////////////
+        /// 
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        rightInputPanel.add(saddleTypeLabel, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        rightInputPanel.add(saddleColourLabel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        rightInputPanel.add(saddle, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        rightInputPanel.add(saddleDesignInput, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        rightInputPanel.add(saddleColourInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        rightInputPanel.add(horseShoes,gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        rightInputPanel.add(horseShoesInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        rightInputPanel.add(bridle, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        rightInputPanel.add(bridleInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        rightInputPanel.add(hat, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        rightInputPanel.add(hatInput, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        rightInputPanel.add(equipmentEffects, gbc);
+        //////////////////////
+
+        add(rightInputPanel, BorderLayout.EAST);
     }
 }
