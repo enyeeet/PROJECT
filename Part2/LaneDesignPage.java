@@ -12,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -60,12 +61,13 @@ public class LaneDesignPage extends JPanel{
 
         //Panel for title
         //
-        JLabel laneTitle = new JLabel("Step 1: Lanes");
-        laneTitle.setFont(new Font(null, Font.ITALIC, 30));
+        JLabel laneTitle = new JLabel("Lanes");
+        laneTitle.setFont(new Font("Ink Free", Font.BOLD, 60));
 
         titlePanel = new JPanel(new GridBagLayout());
-        titlePanel.setBackground(Color.LIGHT_GRAY);
+        titlePanel.setBackground(Color.WHITE);
         titlePanel.setPreferredSize(new Dimension(200, 120));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(90, 0, 0, 0));
 
         titlePanel.add(laneTitle);
         add(titlePanel, BorderLayout.NORTH);
@@ -74,6 +76,7 @@ public class LaneDesignPage extends JPanel{
         //Panel for all inputs
         //
         inputPanel = new JPanel(new GridBagLayout());
+        inputPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(15, 15, 15, 15);
 
@@ -99,6 +102,7 @@ public class LaneDesignPage extends JPanel{
         lengthInput.setPreferredSize(new Dimension(100,25));
         lengthUnit = new JComboBox<>(new String[]{"m", "ft"});
         lengthUnit.setPreferredSize(new Dimension(50,25));
+        lengthUnit.setFont(new Font(null, Font.PLAIN, 15));
 
 
         //Shape of track
@@ -107,6 +111,7 @@ public class LaneDesignPage extends JPanel{
         shapeLabel.setFont(labelFont);
         shapeInput = new JComboBox<>(new String[]{"Oval", "Figure Eight"});
         shapeInput.setPreferredSize(new Dimension(110,25));
+        shapeInput.setFont(new Font(null, Font.PLAIN, 15));
         JLabel orLabel = new JLabel("OR");
         orLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         designYourOwn = new JButton("Design Your Own");
@@ -119,6 +124,7 @@ public class LaneDesignPage extends JPanel{
         trackConditionsLabel.setFont(labelFont);
         trackConditions = new JComboBox<>(new String[]{"Muddy", "Dry", "Icy"});
         trackConditions.setPreferredSize(new Dimension(110,25));
+        trackConditions.setFont(new Font(null, Font.PLAIN, 15));
 
         JLabel trackConditionEffects = new JLabel("<html><u>How does this affect my horse?<u><html>");
         trackConditionEffects.setForeground(Color.BLUE);
