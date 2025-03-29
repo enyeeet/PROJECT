@@ -25,6 +25,16 @@ public class HorseDesignPage extends JPanel{
     private HorseRaceGUI mainGUI;
     private int noOfHorses;
 
+    JTextField horseNameInput;
+    JComboBox<String> breedInput;
+    JComboBox<String> coatColourInput;
+    JComboBox<String> symbolInput;
+    JComboBox<String> saddleDesignInput;
+    JComboBox<String> saddleColourInput;
+    JComboBox<String> horseShoesInput;
+    JComboBox<String> bridleInput;
+    JComboBox<String> hatInput;
+
     Font labelFont = new Font("Calibri", Font.BOLD, 20);
     Font comboBoxFont = new Font(null, Font.PLAIN, 15);
 
@@ -59,8 +69,12 @@ public class HorseDesignPage extends JPanel{
         JPanel bottomRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> {
-            if (noOfHorses < mainGUI.getTotalHorseDesignPages().size()) {
-                mainGUI.cardLayout.show(mainGUI.mainPanel, "HORSE DESIGN PAGE " + (noOfHorses + 1));
+            int confirm = JOptionPane.showConfirmDialog(this, "Save settings and move to the next horse?", "Confirm Save", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                saveHorseSettings();
+                if (noOfHorses < mainGUI.getTotalHorseDesignPages().size()) {
+                    mainGUI.cardLayout.show(mainGUI.mainPanel, "HORSE DESIGN PAGE " + (noOfHorses + 1));
+                }
             }
         });
 
@@ -92,25 +106,25 @@ public class HorseDesignPage extends JPanel{
 
         JLabel horseName = new JLabel("Name:");
         horseName.setFont(labelFont);
-        JTextField horseNameInput = new JTextField(9);
+        horseNameInput = new JTextField(9);
         horseNameInput.setFont(new Font(null, Font.PLAIN, 15));
         horseNameInput.setText("Horse " + noOfHorses);
 
         JLabel horseBreed = new JLabel("Breed:");
         horseBreed.setFont(labelFont);
-        JComboBox <String> breedInput = new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse"});
+        breedInput = new JComboBox<>(new String[]{"Thoroughbred", "Arabian", "Quarter Horse"});
         breedInput.setPreferredSize(new Dimension(120, 25));
         breedInput.setFont(comboBoxFont);
 
         JLabel coatColour = new JLabel("Coat Colour:");
         coatColour.setFont(labelFont);
-        JComboBox <String> coatColourInput = new JComboBox<>(new String[]{"Brown", "Black", "Grey", "White"});
+        coatColourInput = new JComboBox<>(new String[]{"Brown", "Black", "Grey", "White"});
         coatColourInput.setPreferredSize(new Dimension(120,25));
         coatColourInput.setFont(comboBoxFont);
 
         JLabel symbol = new JLabel("Symbol:");
         symbol.setFont(labelFont);
-        JComboBox <String> symbolInput = new JComboBox<>(new String[]{"🏇", "🦄", "♞"});
+        symbolInput = new JComboBox<>(new String[]{"🏇", "🦄", "♞"});
         symbolInput.setPreferredSize(new Dimension(120, 25));
         symbolInput.setFont(new Font(null, Font.PLAIN, 20));
 
@@ -193,30 +207,30 @@ public class HorseDesignPage extends JPanel{
         
         JLabel saddle = new JLabel("Saddle:");
         saddle.setFont(labelFont);
-        JComboBox <String> saddleDesignInput = new JComboBox<>(new String[]{"Dressage", "Jumping", "All-Purpose", "Endurance", "Racing", "Polo"});
+        saddleDesignInput = new JComboBox<>(new String[]{"Dressage", "Jumping", "All-Purpose", "Endurance", "Racing", "Polo"});
         saddleDesignInput.setFont(comboBoxFont);
         saddleDesignInput.setPreferredSize(new Dimension(120,25));
         
-        JComboBox <String> saddleColourInput = new JComboBox<>(new String[]{"Black", "White", "Pink", "Brown"});
+        saddleColourInput = new JComboBox<>(new String[]{"Black", "White", "Pink", "Brown"});
         saddleColourInput.setFont(comboBoxFont);
         saddleColourInput.setPreferredSize(new Dimension(80,24));
         
 
         JLabel horseShoes = new JLabel("Horseshoes:");
         horseShoes.setFont(labelFont);
-        JComboBox <String> horseShoesInput = new JComboBox<>(new String[]{"Regular", "Aluminum", "Steel", "Stick-On"});
+        horseShoesInput = new JComboBox<>(new String[]{"Regular", "Aluminum", "Steel", "Stick-On"});
         horseShoesInput.setFont(comboBoxFont);
         horseShoesInput.setPreferredSize(new Dimension(120,25));
 
         JLabel bridle = new JLabel("Bridle:");
         bridle.setFont(labelFont);
-        JComboBox <String> bridleInput = new JComboBox<>(new String[]{"Snaffle", "Double", "Bitless"});
+        bridleInput = new JComboBox<>(new String[]{"Snaffle", "Double", "Bitless"});
         bridleInput.setFont(comboBoxFont);
         bridleInput.setPreferredSize(new Dimension(120,25));
 
         JLabel hat = new JLabel("Hat:");
         hat.setFont(labelFont);
-        JComboBox <String> hatInput = new JComboBox<>(new String[]{"Top Hat 🎩", "Cowboy Hat", "Straw Hat 👒", "Sombrero"});
+        hatInput = new JComboBox<>(new String[]{"Top Hat 🎩", "Cowboy Hat", "Straw Hat 👒", "Sombrero"});
         hatInput.setFont(comboBoxFont);
         hatInput.setPreferredSize(new Dimension(120,25));
 
@@ -289,5 +303,24 @@ public class HorseDesignPage extends JPanel{
         //////////////////////
 
         add(rightInputPanel, BorderLayout.EAST);
+    }
+
+    private void saveHorseSettings() {
+        String horseName = horseNameInput.getText();
+        if(horseName == null){
+            System.out.println("Name field cannot be empty.");
+            return;
+        }
+        String breed = (String) breedInput.getSelectedItem();
+        String coatColor = (String) coatColourInput.getSelectedItem();
+        String symbol = (String) symbolInput.getSelectedItem();
+        String saddleDesign = (String) saddleDesignInput.getSelectedItem();
+        String saddleColor = (String) saddleColourInput.getSelectedItem();
+        String horseShoes = (String) horseShoesInput.getSelectedItem();
+        String bridle = (String) bridleInput.getSelectedItem();
+        String hat = (String) hatInput.getSelectedItem();
+    
+        HorseData horseData = new HorseData(horseName, breed, coatColor, symbol, saddleDesign, saddleColor, horseShoes, bridle, hat);
+        mainGUI.saveHorseSettings(horseData, noOfHorses);
     }
 }
