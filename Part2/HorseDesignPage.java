@@ -25,6 +25,8 @@ public class HorseDesignPage extends JPanel{
     private HorseRaceGUI mainGUI;
     private int noOfHorses;
 
+    JButton backButton;
+    JButton nextButton;
     JTextField horseNameInput;
     JComboBox<String> breedInput;
     JComboBox<String> coatColourInput;
@@ -46,11 +48,14 @@ public class HorseDesignPage extends JPanel{
         setBackground(Color.WHITE);
         createHorse();
         addEquipment();
+        buttonSetUp();
 
+    }
+
+    private void buttonSetUp(){
         JPanel bottomPanel = new JPanel(new BorderLayout());
-
         JPanel bottomLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton backButton = new JButton("Back");
+        backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             if(noOfHorses > 1){
                 mainGUI.cardLayout.show(mainGUI.mainPanel, "HORSE DESIGN PAGE " + (noOfHorses - 1));
@@ -67,17 +72,8 @@ public class HorseDesignPage extends JPanel{
         bottomPanel.add(bottomLeftPanel, BorderLayout.WEST);
 
         JPanel bottomRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton nextButton = new JButton("Next");
-        nextButton.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this, "Save settings and move to the next horse?", "Confirm Save", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                saveHorseSettings();
-                if (noOfHorses < mainGUI.getTotalHorseDesignPages().size()) {
-                    mainGUI.cardLayout.show(mainGUI.mainPanel, "HORSE DESIGN PAGE " + (noOfHorses + 1));
-                }
-            }
-        });
-
+        nextButton = new JButton();
+        nextButton.addActionListener(e -> handleNextButtonClick());
         bottomRightPanel.add(nextButton);
         bottomPanel.add(bottomRightPanel, BorderLayout.EAST);
 
@@ -322,5 +318,33 @@ public class HorseDesignPage extends JPanel{
     
         HorseData horseData = new HorseData(horseName, breed, coatColor, symbol, saddleDesign, saddleColor, horseShoes, bridle, hat);
         mainGUI.saveHorseSettings(horseData, noOfHorses);
+    }
+
+    private void handleNextButtonClick() {
+        int confirm = JOptionPane.showConfirmDialog(this,
+                isLastHorse() ? "Save settings and finish?" : "Save settings and move to the next horse?",
+                "Confirm Save",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            saveHorseSettings();
+            if (isLastHorse()) {
+                mainGUI.cardLayout.show(mainGUI.mainPanel, "START MENU"); // Go to main menu
+            } else {
+                mainGUI.cardLayout.show(mainGUI.mainPanel, "HORSE DESIGN PAGE " + (noOfHorses + 1));
+            }
+        }
+    }
+
+    private boolean isLastHorse() {
+        return noOfHorses >= mainGUI.getTotalHorseDesignPages().size();
+    }
+
+    @Override
+    public void setVisible(boolean visible){
+        super.setVisible(visible);
+        if(visible){
+            nextButton.setText(isLastHorse() ? "Finish and Save" : "Next");
+        }
     }
 }
