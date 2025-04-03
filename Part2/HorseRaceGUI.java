@@ -63,13 +63,14 @@ public class HorseRaceGUI {
     }
 
     private void createStartMenu(){
-        gameTitle = new JLabel("TITLE", SwingConstants.CENTER);
-        gameTitle.setFont(new Font(null, Font.BOLD, 40));
+        gameTitle = new JLabel("Horse Racing", SwingConstants.CENTER);
+        gameTitle.setFont(new Font("Ink Free", Font.BOLD, 60));
         
         titlePanel = new JPanel();
         titlePanel.setLayout(new GridBagLayout());
-        titlePanel.setBackground(Color.GRAY);
-        titlePanel.setPreferredSize(new Dimension(200, 120));
+        titlePanel.setBackground(Color.WHITE);
+        titlePanel.setPreferredSize(new Dimension(200, 140));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(90, 0, 0, 0));
 
         titlePanel.add(gameTitle);
     
@@ -82,9 +83,9 @@ public class HorseRaceGUI {
         ///////////BUTTONS
 
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        buttonPanel.setLayout(new GridLayout(4, 1, 15, 15));
         buttonPanel.setBackground(Color.WHITE);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 200, 20, 200));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(90, 220, 90, 220));
 
         Font buttonFont = new Font("Arial", Font.BOLD, 15);
 
