@@ -218,6 +218,21 @@ public class LaneDesignPage extends JPanel{
         try{
             noOfLanes = Integer.parseInt(laneInput.getText().trim());
             trackLength = Integer.parseInt(lengthInput.getText().trim());
+
+            if(noOfLanes <= 1 && trackLength < 100){
+                JOptionPane.showMessageDialog(this, "Your horse can't compete with itself... (No. of lanes must be >1)", "Input Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Track length must be at least 100.", "Input Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            else if(noOfLanes <= 1){
+                JOptionPane.showMessageDialog(this, "Your horse can't compete with itself... (No. of lanes must be >1)", "Input Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            else if(trackLength < 100) {
+                JOptionPane.showMessageDialog(this, "Track length must be at least 100.", "Input Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
         }
         catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Please enter integer values for lanes and length.", "Input Error", JOptionPane.ERROR_MESSAGE);
