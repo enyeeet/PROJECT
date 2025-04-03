@@ -229,10 +229,6 @@ public class LaneDesignPage extends JPanel{
         String trackShape = (String) shapeInput.getSelectedItem();
         String trackCondition = (String) trackConditions.getSelectedItem();
 
-        horseData = new HorseData("Horse1", "Breed1", "Brown", "Symbol1", "Design1", "Colour1", "HorseShoe1", "Bridle1", "Hat1");
-        horseData.setTrackShape(trackShape);
-        horseData.setTrackCondition(trackCondition);
-
         int choice = JOptionPane.showConfirmDialog(this,
             "Are you sure you want to save these settings?\n"
             + "Lanes: " + noOfLanes + "\n"
