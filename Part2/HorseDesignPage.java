@@ -136,7 +136,7 @@ public class HorseDesignPage extends JPanel{
                 JOptionPane.showMessageDialog(breedInput, """
                                                             Speed     Stamina      Confidence
                         Thoroughbred:           0.6             0.7                    0.8
-                        Arabian:                      0.8             0.5                    0.7
+                        Arabian:                       0.8             0.5                    0.7
                         Quarter Horse:           0.6             0.6                    0.5
 
                         """, "Breed Attributes", JOptionPane.INFORMATION_MESSAGE);
@@ -241,10 +241,10 @@ public class HorseDesignPage extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e){
                 JOptionPane.showMessageDialog(horseShoesInput, """
-                        Regular:  *No effect on original attributes*
+                        Regular:  -No effect on original attributes-
                         Aluminum:  Speed +0.2  Risk of falling* +0.2
-                        Steel:   Stamina -0.2  Risk of falling* -0.1
-                        Stick-On: Stamina +0.3  Risk of falling* -0.2
+                        Steel:   Stamina -0.2  Risk of falling -0.1
+                        Stick-On: Stamina +0.3  Risk of falling -0.2
                         
                         *Increases horse confidence, however, your horse gets cocky and is less careful...
 
