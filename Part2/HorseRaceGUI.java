@@ -145,6 +145,21 @@ public class HorseRaceGUI {
             horseDataList.add(horseData);
         }
     }
+
+    public HorseData getHorseData(int index){
+        if(index >= 1 && index <= horseDataList.size()){
+            return horseDataList.get(index - 1);
+        }
+        return null;
+    }
+
+    public String getTrackShape(){
+        return trackShape;
+    }
+
+    public String getTrackCondition(){
+        return trackCondition;
+    }
     
     public ArrayList<HorseData> getHorseDataList() {
         return horseDataList;
@@ -162,7 +177,7 @@ public class HorseRaceGUI {
         cardLayout.show(mainPanel, "HORSE DESIGN PAGE 1");
     }
 
-    public void showDesignPage(){
+    public void showLaneDesignPage(){
         cardLayout.show(mainPanel, "LANE DESIGN PAGE");
     }
 }
