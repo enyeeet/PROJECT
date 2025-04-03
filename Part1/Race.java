@@ -95,7 +95,9 @@ public class Race
                         
             //print the race positions
             printRace();
-            
+
+            Horse winner = null;
+
             //if any of the three horses has won the race is finished
             if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
             {
@@ -113,14 +115,13 @@ public class Race
                 TimeUnit.MILLISECONDS.sleep(100);
             }catch(Exception e){}
 
-            Horse winner = null;
+
             if(raceWonBy(lane1Horse)) winner = lane1Horse;
             else if(raceWonBy(lane2Horse)) winner = lane2Horse;
             else if(raceWonBy(lane3Horse)) winner = lane3Horse;
 
             if(winner != null){
                 System.out.println("And the winner is... " + winner.getName().toUpperCase()+ "!!!");
-                winner.increaseConfidence(0.05);
             }
         }
     }
@@ -151,6 +152,10 @@ public class Race
             {
                 theHorse.fall();
             }
+        }
+
+        if(raceWonBy(theHorse)){
+            theHorse.increaseConfidence(0.05);
         }
     }
         
