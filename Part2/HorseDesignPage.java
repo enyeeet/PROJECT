@@ -40,6 +40,8 @@ public class HorseDesignPage extends JPanel{
     Font labelFont = new Font("Calibri", Font.BOLD, 20);
     Font comboBoxFont = new Font(null, Font.PLAIN, 15);
 
+    HorseData horseData;
+
     HorseDesignPage(HorseRaceGUI mainGUI, int noOfHorses){
         this.mainGUI = mainGUI;
         this.noOfHorses = noOfHorses;
@@ -64,7 +66,7 @@ public class HorseDesignPage extends JPanel{
                 // If on the first page, go back to the "LANE DESIGN PAGE"
                 int cfmGoBack = JOptionPane.showConfirmDialog(this, "Go back to lane design page?", "Confirm Action", JOptionPane.YES_NO_OPTION);
                 if(cfmGoBack == JOptionPane.YES_OPTION){
-                    mainGUI.cardLayout.show(mainGUI.mainPanel, "LANE DESIGN PAGE");
+                    mainGUI.showLaneDesignPage();
                 }
             }
         });
@@ -132,9 +134,10 @@ public class HorseDesignPage extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e){
                 JOptionPane.showMessageDialog(breedInput, """
-                        Thoroughbred:  Speed ↓  Stamina ↑
-                        Arabian:  Speed ↑  Stamina ↓ Horse confidence ↑
-                        Quarter Horse:   Speed ↑
+                                                            Speed     Stamina      Confidence
+                        Thoroughbred:           0.6             0.7                    0.8
+                        Arabian:                      0.8             0.5                    0.7
+                        Quarter Horse:           0.6             0.6                    0.5
 
                         """, "Breed Attributes", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -239,9 +242,11 @@ public class HorseDesignPage extends JPanel{
             public void mouseClicked(MouseEvent e){
                 JOptionPane.showMessageDialog(horseShoesInput, """
                         Regular:  *No effect on original attributes*
-                        Aluminum:  Speed ↑  Risk of falling ↑
-                        Steel:   Stamina ↓ Risk of falling ↓
-                        Stick-On: Stamina ↑  Horse confidence ↑
+                        Aluminum:  Speed +0.2  Risk of falling* +0.2
+                        Steel:   Stamina -0.2  Risk of falling* -0.1
+                        Stick-On: Stamina +0.3  Risk of falling* -0.2
+                        
+                        *Increases horse confidence, however, your horse gets cocky and is less careful...
 
                         """, "Horseshoe Effects", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -316,7 +321,14 @@ public class HorseDesignPage extends JPanel{
         String bridle = (String) bridleInput.getSelectedItem();
         String hat = (String) hatInput.getSelectedItem();
     
-        HorseData horseData = new HorseData(horseName, breed, coatColor, symbol, saddleDesign, saddleColor, horseShoes, bridle, hat);
+        horseData = new HorseData(horseName, breed, coatColor, symbol, saddleDesign, saddleColor, horseShoes, bridle, hat);
+
+        String trackCondition = mainGUI.getTrackCondition();   //apply effects of track condition and shape only after user has finished customising horse
+        String trackShape = mainGUI.getTrackShape();
+        horseData.setTrackCondition(trackCondition);
+        horseData.setTrackShape(trackShape);
+        horseData.finaliseHorseStats();
+
         mainGUI.saveHorseSettings(horseData, noOfHorses);
     }
 
@@ -328,6 +340,15 @@ public class HorseDesignPage extends JPanel{
 
         if (confirm == JOptionPane.YES_OPTION) {
             saveHorseSettings();
+
+            HorseData currentHorseData = mainGUI.getHorseData(noOfHorses);
+            JOptionPane.showMessageDialog(this,
+                    String.format("Current horse stats:\nSpeed: %.2f\nStamina: %.2f\nConfidence: %.2f",
+                            currentHorseData.getHorseSpeed(),
+                            currentHorseData.getHorseStamina(),
+                            currentHorseData.getHorseConfidence()),
+                    "Horse Stats", JOptionPane.INFORMATION_MESSAGE);
+
             if (isLastHorse()) {
                 mainGUI.cardLayout.show(mainGUI.mainPanel, "START MENU"); // Go to main menu
             } else {
