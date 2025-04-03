@@ -34,7 +34,7 @@ public class HorseData {
             case "Thoroughbred" -> {
                 this.horseSpeed = 0.6;
                 this.horseStamina = 0.7;
-                this.horseConfidence = 0.8;
+                this.horseConfidence = 0.7;
             }
             case "Arabian" -> {
                 this.horseSpeed = 0.8;
@@ -52,6 +52,7 @@ public class HorseData {
     public void finaliseHorseStats(){
         trackConditionEffect();
         trackShapeEffect();
+        horseShoeEffect();
     }
 
     public void trackConditionEffect(){
@@ -76,6 +77,23 @@ public class HorseData {
         }
         else if(trackShape.equals("Figure Eight")){
             this.horseSpeed += 0.2;
+        }
+    }
+
+    public void horseShoeEffect(){
+        switch(horseShoes){
+            case "Aluminum" -> {
+                this.horseSpeed += 0.2;
+                this.horseConfidence += 0.2;
+            }
+            case "Steel" -> {
+                this.horseStamina -= 0.2;
+                this.horseConfidence -= 0.1;
+            }
+            case "Stick-On" -> {
+                this.horseStamina += 0.3;
+                this.horseConfidence -= 0.2;
+            }
         }
     }
 
