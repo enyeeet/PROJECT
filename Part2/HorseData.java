@@ -56,17 +56,17 @@ public class HorseData {
 
     public void trackConditionEffect(){
         switch(trackCondition){
-            case "Muddy":
+            case "Muddy" -> {
                 this.horseSpeed -= 0.2;
                 this.horseStamina -= 0.2;
-                break;
-            case "Icy":
+            }
+            case "Icy" -> {
                 this.horseConfidence -= 0.3;
-                break;
-            case "Dry":
+            }
+            case "Dry" -> {
                 this.horseSpeed += 0.2;
                 this.horseConfidence += 0.2;
-                break;
+            }
         }
     }
 
