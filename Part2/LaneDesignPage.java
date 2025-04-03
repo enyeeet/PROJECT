@@ -32,6 +32,8 @@ public class LaneDesignPage extends JPanel{
     JComboBox<String> shapeInput;
     JComboBox<String> trackConditions;
 
+    private HorseData horseData;
+
     LaneDesignPage(HorseRaceGUI mainGUI){
 
         this.mainGUI = mainGUI;
@@ -134,9 +136,9 @@ public class LaneDesignPage extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e){
                 JOptionPane.showMessageDialog(shapeInput, """
-                        Muddy:  Speed ↓
-                        Icy:  Risk of falling ↑  Horse confidence ↓
-                        Dry:  Speed ↑
+                        Muddy:  Speed -0.2  Stamina -0.2
+                        Icy:  Confidence -0.3
+                        Dry:  Speed +0.2  Confidence +0.2
 
                         """, "Effects Info", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -226,6 +228,10 @@ public class LaneDesignPage extends JPanel{
         String trackLengthUnit = (String) lengthUnit.getSelectedItem();
         String trackShape = (String) shapeInput.getSelectedItem();
         String trackCondition = (String) trackConditions.getSelectedItem();
+
+        horseData = new HorseData("Horse1", "Breed1", "Brown", "Symbol1", "Design1", "Colour1", "HorseShoe1", "Bridle1", "Hat1");
+        horseData.setTrackShape(trackShape);
+        horseData.setTrackCondition(trackCondition);
 
         int choice = JOptionPane.showConfirmDialog(this,
             "Are you sure you want to save these settings?\n"
