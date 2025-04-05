@@ -35,6 +35,7 @@ public class HorseRaceGUI {
     private String trackLengthUnit;
     private String trackShape;
     private String trackCondition;
+    private boolean lanesAndHorsesDesigned = false;
 
     private ArrayList<HorseDesignPage> totalHorseDesignPages;
     private ArrayList<HorseData> horseDataList;
@@ -92,6 +93,7 @@ public class HorseRaceGUI {
         startRaceButton = new JButton("Start A Race");
         startRaceButton.setFocusable(false);
         startRaceButton.setFont(buttonFont);
+        startRaceButton.setEnabled(false);
 
         designButton = new JButton("Design Your Lanes & Horses");
         designButton.setFocusable(false);
@@ -145,6 +147,9 @@ public class HorseRaceGUI {
         } else {
             horseDataList.add(horseData);
         }
+
+        lanesAndHorsesDesigned = true;
+        startRaceButton.setEnabled(true);
     }
 
     public HorseData getHorseData(int index){
@@ -161,6 +166,8 @@ public class HorseRaceGUI {
     public String getTrackCondition(){
         return trackCondition;
     }
+
+    public int getTrackLength(){ return trackLength; }
     
     public ArrayList<HorseData> getHorseDataList() {
         return horseDataList;
