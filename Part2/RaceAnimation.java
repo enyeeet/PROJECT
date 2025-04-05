@@ -58,6 +58,10 @@ public class RaceAnimation {
         boolean finished = false;
         String endRaceText = "";
 
+        for (InRaceHorse horse : horses) {
+            horse.startTime();
+        }
+
         while (!finished) {
             for (InRaceHorse horse : horses) {
                 moveHorse(horse);
@@ -67,15 +71,17 @@ public class RaceAnimation {
 
             for (InRaceHorse horse : horses) {
                 if (raceWonBy(horse)) {
+                    horse.endTime();
                     finished = true;
                     winningHorse = horse;
                     endRaceText = "<br><br><b>Winner: " + horse.getName().toUpperCase() + "! 🏆</b>";
+                    endRaceText += "<br><b>Finishing Time: </b>" + String.format("%.2f", horse.getFinishingTime()) + " seconds.";
                 }
             }
 
             if (allHorsesFallen()) {
                 finished = true;
-                endRaceText = "\t\n\n\n<html><b>All horses have fallen! Race over.</b> ❌</html>";
+                endRaceText = "<br><br><b>All horses have fallen! Race over. ❌</b>";
             }
 
             updateRaceUI(endRaceText);
@@ -138,14 +144,6 @@ public class RaceAnimation {
             }
         }
         return true;
-    }
-
-    private void multiplePrint(char aChar, int times) {
-        int i = 0;
-        while (i < times) {
-            System.out.print(aChar);
-            i = i + 1;
-        }
     }
 
     private void moveHorse(InRaceHorse theHorse) {
