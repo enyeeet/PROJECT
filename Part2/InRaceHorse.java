@@ -15,6 +15,10 @@ public class InRaceHorse
     private boolean fallen;
     private int distanceTravelled;
 
+    private long startTime;
+    private long endTime;
+    private double finishingTime;
+
 
     //Constructor of class Horse
     /**
@@ -27,13 +31,26 @@ public class InRaceHorse
         setConfidence(horseConfidence);
         this.fallen = false;
         this.distanceTravelled = 0;
+        this.finishingTime = 0.0;
     }
 
-    //Other methods of class Horse
+    public void startTime(){
+        this.startTime = System.nanoTime();
+    }
+
+    public void endTime(){
+        this.endTime = System.nanoTime();
+        this.finishingTime = (this.endTime - this.startTime) / 1000000000.0;
+    }
+
     public void fall()
     {
         this.fallen = true;
         decreaseConfidence(0.02);
+    }
+
+    public double getFinishingTime(){
+        return this.finishingTime;
     }
 
     public double getConfidence()
