@@ -1,37 +1,34 @@
 package Part2;
 
-/**
- * Write a description of class Horse here.
- *
- * @author Lee En Yee
- * @version 1
- */
 public class InRaceHorse
 {
-    //Fields of class Horse
+    private HorseData horseData;
+
     private String horseSymbol;
     private String horseName;
     private double horseConfidence;
     private boolean fallen;
     private int distanceTravelled;
+    private double horseSpeed;
 
     private long startTime;
     private long endTime;
     private double finishingTime;
 
 
-    //Constructor of class Horse
-    /**
-     * Constructor for objects of class Horse
-     */
-    public InRaceHorse(String horseSymbol, String horseName, double horseConfidence)
+    public InRaceHorse(String horseSymbol, String horseName, double horseConfidence, double horseSpeed)
     {
         this.horseSymbol = horseSymbol;
         this.horseName = horseName;
+        this.horseSpeed = horseSpeed;
         setConfidence(horseConfidence);
         this.fallen = false;
         this.distanceTravelled = 0;
         this.finishingTime = 0.0;
+    }
+
+    public RaceResult generateResult(boolean isWinner){
+        return new RaceResult(this.finishingTime, this.horseSpeed, this.horseConfidence, isWinner);
     }
 
     public void startTime(){
