@@ -24,11 +24,18 @@ public class RaceAnimation {
 
     private void initializeHorses() {
         ArrayList<HorseData> horseDataList = mainGUI.getHorseDataList();
+        ArrayList<HorsePerformance> horsePerformanceList = mainGUI.getHorsePerformanceList();
         this.noOfLanes = horseDataList.size();  // Set number of lanes based on number of horses
 
+        horses.clear();
+        horsePerformanceList.clear();
+
         for (HorseData horseData : horseDataList) {
-            InRaceHorse horse = new InRaceHorse(horseData.getSymbol(), horseData.getName(), horseData.getHorseConfidence());
+            InRaceHorse horse = new InRaceHorse(horseData.getSymbol(), horseData.getName(), horseData.getHorseConfidence(), horseData.getHorseSpeed());
             horses.add(horse);
+
+            HorsePerformance horsePerformance = new HorsePerformance(horseData, mainGUI);
+            horsePerformanceList.add(horsePerformance);
         }
     }
 
@@ -48,6 +55,8 @@ public class RaceAnimation {
     }
 
     public void startRace() {
+        initializeHorses();
+
         if (!allHorsesHaveValidConfidence()) {
             racePage.updateRaceDisplay("Cannot start race as not all horses have a valid confidence rating.");
             return;
@@ -86,9 +95,28 @@ public class RaceAnimation {
 
             updateRaceUI(endRaceText);
 
+            ArrayList<HorsePerformance> performanceList = mainGUI.getHorsePerformanceList();
+
+            for (int i = 0; i < horses.size(); i++) {
+                InRaceHorse raceHorse = horses.get(i);
+                boolean isWinner = raceHorse == winningHorse;
+                RaceResult result = raceHorse.generateResult(isWinner);
+
+                if (i < performanceList.size()) {
+                    performanceList.get(i).addResult(result);
+                }
+            }
+
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
-            } catch (Exception e) {
+            } catch (Exception e) {}
+
+            ArrayList<HorseData> dataList = mainGUI.getHorseDataList();
+            for (int i = 0; i < horses.size(); i++) {
+                InRaceHorse raceHorse = horses.get(i);
+                if (i < dataList.size()) {
+                    dataList.get(i).setConfidence(raceHorse.getConfidence());
+                }
             }
         }
     }
