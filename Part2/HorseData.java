@@ -32,19 +32,19 @@ public class HorseData {
 
         switch (this.breed) {
             case "Thoroughbred" -> {
-                this.horseSpeed = 0.6;
-                this.horseStamina = 0.7;
-                this.horseConfidence = 0.7;
+                this.horseSpeed = 0.5;
+                this.horseStamina = 0.6;
+                this.horseConfidence = 0.3;
             }
             case "Arabian" -> {
-                this.horseSpeed = 0.8;
+                this.horseSpeed = 0.7;
                 this.horseStamina = 0.5;
-                this.horseConfidence = 0.7;
+                this.horseConfidence = 0.5;
             }
             case "Quarter Horse" -> {
-                this.horseSpeed = 0.6;
+                this.horseSpeed = 0.4;
                 this.horseStamina = 0.6;
-                this.horseConfidence = 0.5;
+                this.horseConfidence = 0.4;
             }
         }
     }
@@ -74,9 +74,11 @@ public class HorseData {
     public void trackShapeEffect(){
         if(trackShape.equals("Oval")){
             this.horseSpeed += 0.1;
+            this.horseConfidence += 0.1;
         }
         else if(trackShape.equals("Figure Eight")){
             this.horseSpeed += 0.2;
+            this.horseConfidence += 0.2;
         }
     }
 
@@ -103,6 +105,15 @@ public class HorseData {
 
     public void setTrackShape(String trackShape) {
         this.trackShape = trackShape;
+    }
+
+    public void setConfidence(double newConfidence)
+    {
+        if(newConfidence < 0.0 || newConfidence > 1.0){
+            System.out.println("Confidence rating must be between 0.0 and 1.0.");
+        }
+
+        this.horseConfidence = newConfidence;
     }
 
     // Getters
