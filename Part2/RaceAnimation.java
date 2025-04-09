@@ -126,7 +126,8 @@ public class RaceAnimation {
 
         for (InRaceHorse raceHorse : horses) {
             boolean isWinner = raceHorse == winningHorse;
-            RaceResult result = raceHorse.generateResult(isWinner);
+            boolean didNotFinish = raceHorse.hasFallen();
+            RaceResult result = raceHorse.generateResult(isWinner, didNotFinish);
 
             HorsePerformance perf = performanceMap.get(raceHorse.getName());
             if (perf != null) {
@@ -215,4 +216,3 @@ public class RaceAnimation {
         return (int) Math.round((double) trackLength / 100.0);
     }
 }
-
