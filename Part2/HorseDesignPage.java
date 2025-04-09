@@ -122,7 +122,7 @@ public class HorseDesignPage extends JPanel{
 
         JLabel symbol = new JLabel("Symbol:");
         symbol.setFont(labelFont);
-        symbolInput = new JComboBox<>(new String[]{"🏇", "🦄", "♞"});
+        symbolInput = new JComboBox<>(new String[]{"🏇", "🦄", "♞", "\uD83D\uDC0E"});
         symbolInput.setPreferredSize(new Dimension(120, 25));
         symbolInput.setFont(new Font(null, Font.PLAIN, 20));
 
@@ -320,6 +320,12 @@ public class HorseDesignPage extends JPanel{
         String horseShoes = (String) horseShoesInput.getSelectedItem();
         String bridle = (String) bridleInput.getSelectedItem();
         String hat = (String) hatInput.getSelectedItem();
+
+        double preservedConfidence = 0.0;
+        HorseData existingHorse = mainGUI.getHorseData(noOfHorses);
+        if (existingHorse != null) {
+            preservedConfidence = existingHorse.getHorseConfidence();
+        }
     
         horseData = new HorseData(horseName, breed, coatColor, symbol, saddleDesign, saddleColor, horseShoes, bridle, hat);
 
@@ -328,6 +334,9 @@ public class HorseDesignPage extends JPanel{
         horseData.setTrackCondition(trackCondition);
         horseData.setTrackShape(trackShape);
         horseData.finaliseHorseStats();
+        if (existingHorse != null) {
+            horseData.setConfidence(preservedConfidence);
+        }
 
         mainGUI.saveHorseSettings(horseData, noOfHorses);
     }
