@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class StatisticsPage extends JFrame{
+    private HorseRaceGUI mainGUI;
     private JComboBox <String> horseSelector;
     private JTable statsTable;
     private DefaultTableModel tableModel;
@@ -14,12 +15,13 @@ public class StatisticsPage extends JFrame{
     private ArrayList<HorsePerformance> performanceList;
     private HorseData horseData;
 
-    StatisticsPage(ArrayList<HorsePerformance> performanceList){
+    StatisticsPage(ArrayList<HorsePerformance> performanceList, HorseRaceGUI mainGUI) {
         super("Horse and Race Statistics");
         this.performanceList = performanceList;
+        this.mainGUI = mainGUI;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 600);
+        setSize(800, 400);
         setResizable(false);
 
         createStatsMenu();
@@ -43,7 +45,7 @@ public class StatisticsPage extends JFrame{
         add(topPanel, BorderLayout.NORTH);
 
         // Stats Table Setup
-        String[] columnNames = { "Average Speed", "Finishing Time", "Win Ratio", "Confidence" };
+        String[] columnNames = { "Race #", "Winner?", "Average Speed", "Finishing Time", "Win Ratio", "Confidence", "Track Shape", "Track Condition"};
         tableModel = new DefaultTableModel(columnNames, 0);
         statsTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(statsTable);
@@ -58,17 +60,32 @@ public class StatisticsPage extends JFrame{
     }
 
     private void updateStatsTable(ActionEvent e) {
-        int selectedIndex = horseSelector.getSelectedIndex();
-        if (selectedIndex >= 0) {
-            HorsePerformance hp = performanceList.get(selectedIndex);
+        String selectedIndex = (String) horseSelector.getSelectedItem();
+        if (selectedIndex != null) {
+            HorsePerformance selectedHorse = mainGUI.getHorsePerformanceMap().get(selectedIndex);
+            tableModel.setRowCount(0);
 
-            tableModel.setRowCount(0); // clear previous
-            tableModel.addRow(new Object[] {
-                    String.format("%.2f", hp.getAvgSpeed()),
-                    String.format("%.2f", hp.getFinishingTime()),
-                    String.format("%.2f", hp.getWinRatio()),
-                    String.format("%.2f", hp.getHorseConfidence())
-            });
+            ArrayList<RaceResult> raceHistory = selectedHorse.getRaceHistory();
+
+            for (int i = 0; i < raceHistory.size(); i++) {
+                RaceResult result = raceHistory.get(i);
+
+                double avgSpeed = mainGUI.getTrackLength() / result.getFinishTime();
+                if(result.getFinishTime() == 0){
+                    avgSpeed = 0.0;
+                }
+
+                tableModel.addRow(new Object[]{
+                        i + 1,  // Race number
+                        result.isWinner() ? "Yes" : "No",
+                        String.format("%.2f", avgSpeed),
+                        String.format("%.2f", result.getFinishTime()),
+                        String.format("%.2f", selectedHorse.getWinRatio()),
+                        String.format("%.2f", result.getInitialConfidence()),
+                        result.getTrackShape(),
+                        result.getTrackCondition()
+                });
+            }
         }
     }
 }
