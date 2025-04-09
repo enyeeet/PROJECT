@@ -67,4 +67,10 @@ public class StartRace extends JPanel{
     public void updateRaceDisplay(String raceText){
         raceDisplay.setText(raceText);
     }
+
+    public void refreshRace(){
+        raceAnimation = new RaceAnimation(mainGUI,this);
+        isFirstRace = true;
+        raceDisplay.setText("Horses are ready to roll....");
+    }
 }
