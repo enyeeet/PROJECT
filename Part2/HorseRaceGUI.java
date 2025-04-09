@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.HashMap;
 
 public class HorseRaceGUI {
 
@@ -36,7 +37,7 @@ public class HorseRaceGUI {
 
     private ArrayList<HorseDesignPage> totalHorseDesignPages;
     private ArrayList<HorseData> horseDataList;
-    private ArrayList<HorsePerformance> horsePerformanceList = new ArrayList<>();
+    private HashMap<String, HorsePerformance> horsePerformanceMap = new HashMap<>();
 
     HorseRaceGUI(){
         frame = new JFrame("Horse Racing Simulator");
@@ -108,11 +109,11 @@ public class HorseRaceGUI {
         statsButton.setFocusable(false);
         statsButton.setFont(buttonFont);
         statsButton.addActionListener(e -> {
-            if (horsePerformanceList != null && !horsePerformanceList.isEmpty()) {
+            if (horsePerformanceMap != null && !horsePerformanceMap.isEmpty()) {
                 statsButton.setEnabled(false);  // Disable the button while the stats page is open
 
-                // Open StatisticsPage if horsePerformanceList is populated
-                JFrame statsFrame = new StatisticsPage(horsePerformanceList);
+                // Open StatisticsPage if horsePerformanceMap is populated
+                JFrame statsFrame = new StatisticsPage(new ArrayList<>(horsePerformanceMap.values()), this);
                 statsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 statsFrame.setVisible(true);
 
@@ -188,21 +189,8 @@ public class HorseRaceGUI {
         return null;
     }
 
-    public ArrayList<HorsePerformance> getHorsePerformanceList() {
-        return horsePerformanceList;
-    }
-
-    public void setHorsePerformanceList(ArrayList<HorsePerformance> list) {
-        this.horsePerformanceList = list;
-    }
-
-    public void loadHorseData(ArrayList<HorseData> dataList) {
-        this.horseDataList = dataList;
-
-        horsePerformanceList.clear();
-        for (HorseData data : dataList) {
-            horsePerformanceList.add(new HorsePerformance(data, this));
-        }
+    public HashMap<String, HorsePerformance> getHorsePerformanceMap() {
+        return horsePerformanceMap;
     }
 
     public String getTrackShape(){
