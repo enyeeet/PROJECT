@@ -1,6 +1,7 @@
 package Part2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 
@@ -24,18 +25,31 @@ public class RaceAnimation {
 
     private void initializeHorses() {
         ArrayList<HorseData> horseDataList = mainGUI.getHorseDataList();
-        ArrayList<HorsePerformance> horsePerformanceList = mainGUI.getHorsePerformanceList();
+        HashMap<String, HorsePerformance> horsePerformanceMap = mainGUI.getHorsePerformanceMap();
         this.noOfLanes = horseDataList.size();  // Set number of lanes based on number of horses
 
-        horses.clear();
-        horsePerformanceList.clear();
+        horses.clear(); // Always clear and re-init race horses
 
+        // Initialize horsePerformance only if it's empty (i.e., first race)
         for (HorseData horseData : horseDataList) {
-            InRaceHorse horse = new InRaceHorse(horseData.getSymbol(), horseData.getName(), horseData.getHorseConfidence(), horseData.getHorseSpeed());
-            horses.add(horse);
+            String horseName = horseData.getName();
 
-            HorsePerformance horsePerformance = new HorsePerformance(horseData, mainGUI);
-            horsePerformanceList.add(horsePerformance);
+            // Reuse existing HorsePerformance if it exists
+            HorsePerformance performance = horsePerformanceMap.get(horseName);
+            if (performance == null) {
+                performance = new HorsePerformance(horseData, mainGUI);
+                horsePerformanceMap.put(horseName, performance);
+            }
+
+            // Always create a fresh race horse
+            InRaceHorse horse = new InRaceHorse(
+                    mainGUI,
+                    horseData.getSymbol(),
+                    horseData.getName(),
+                    horseData.getHorseConfidence(),
+                    horseData.getHorseSpeed()
+            );
+            horses.add(horse);
         }
     }
 
@@ -95,18 +109,6 @@ public class RaceAnimation {
 
             updateRaceUI(endRaceText);
 
-            ArrayList<HorsePerformance> performanceList = mainGUI.getHorsePerformanceList();
-
-            for (int i = 0; i < horses.size(); i++) {
-                InRaceHorse raceHorse = horses.get(i);
-                boolean isWinner = raceHorse == winningHorse;
-                RaceResult result = raceHorse.generateResult(isWinner);
-
-                if (i < performanceList.size()) {
-                    performanceList.get(i).addResult(result);
-                }
-            }
-
             try {
                 TimeUnit.MILLISECONDS.sleep(100);
             } catch (Exception e) {}
@@ -117,6 +119,18 @@ public class RaceAnimation {
                 if (i < dataList.size()) {
                     dataList.get(i).setConfidence(raceHorse.getConfidence());
                 }
+            }
+        }
+
+        HashMap<String, HorsePerformance> performanceMap = mainGUI.getHorsePerformanceMap();
+
+        for (InRaceHorse raceHorse : horses) {
+            boolean isWinner = raceHorse == winningHorse;
+            RaceResult result = raceHorse.generateResult(isWinner);
+
+            HorsePerformance perf = performanceMap.get(raceHorse.getName());
+            if (perf != null) {
+                perf.addResult(result);
             }
         }
     }
