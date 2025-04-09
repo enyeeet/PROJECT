@@ -2,6 +2,7 @@ package Part2;
 
 public class InRaceHorse
 {
+    private HorseRaceGUI mainGUI;
     private HorseData horseData;
 
     private String horseSymbol;
@@ -16,8 +17,9 @@ public class InRaceHorse
     private double finishingTime;
 
 
-    public InRaceHorse(String horseSymbol, String horseName, double horseConfidence, double horseSpeed)
+    public InRaceHorse(HorseRaceGUI mainGUI, String horseSymbol, String horseName, double horseConfidence, double horseSpeed)
     {
+        this.mainGUI = mainGUI;
         this.horseSymbol = horseSymbol;
         this.horseName = horseName;
         this.horseSpeed = horseSpeed;
@@ -28,7 +30,7 @@ public class InRaceHorse
     }
 
     public RaceResult generateResult(boolean isWinner){
-        return new RaceResult(this.finishingTime, this.horseSpeed, this.horseConfidence, isWinner);
+        return new RaceResult(this.finishingTime, this.horseSpeed, this.horseConfidence, isWinner, mainGUI.getTrackShape(), mainGUI.getTrackCondition());
     }
 
     public void startTime(){
