@@ -29,8 +29,11 @@ public class InRaceHorse
         this.finishingTime = 0.0;
     }
 
-    public RaceResult generateResult(boolean isWinner){
-        return new RaceResult(this.finishingTime, this.horseSpeed, this.horseConfidence, isWinner, mainGUI.getTrackShape(), mainGUI.getTrackCondition());
+    public RaceResult generateResult(boolean isWinner, boolean didNotFinish) {
+        double finishTime = didNotFinish ? 0 : this.finishingTime;
+        double avgSpeed = didNotFinish ? 0 : mainGUI.getTrackLength() / finishTime;
+
+        return new RaceResult(finishTime, avgSpeed, this.horseConfidence, isWinner, mainGUI.getTrackShape(), mainGUI.getTrackCondition(), didNotFinish);
     }
 
     public void startTime(){
@@ -131,4 +134,3 @@ public class InRaceHorse
         return Math.round(value * 100.0) / 100.0;
     }
 }
-
