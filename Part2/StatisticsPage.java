@@ -74,12 +74,14 @@ public class StatisticsPage extends JFrame{
                 if(result.getFinishTime() == 0){
                     avgSpeed = 0.0;
                 }
+                String speedStr = result.didNotFinish()? "DNF" : String.format("%.2f", avgSpeed);
+                String timeStr = result.didNotFinish()? "DNF" : String.format("%.2f", result.getFinishTime());
 
                 tableModel.addRow(new Object[]{
                         i + 1,  // Race number
                         result.isWinner() ? "Yes" : "No",
-                        String.format("%.2f", avgSpeed),
-                        String.format("%.2f", result.getFinishTime()),
+                        speedStr,
+                        timeStr,
                         String.format("%.2f", selectedHorse.getWinRatio()),
                         String.format("%.2f", result.getInitialConfidence()),
                         result.getTrackShape(),
