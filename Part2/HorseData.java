@@ -118,14 +118,6 @@ public class HorseData {
 
     // Getters
     public String getName() { return name; }
-    public String getBreed() { return breed; }
-    public String getCoatColor() { return coatColor; }
-    public String getSymbol() { return symbol; }
-    public String getSaddleDesign() { return saddleDesign; }
-    public String getSaddleColor() { return saddleColor; }
-    public String getHorseShoes() { return horseShoes; }
-    public String getBridle() { return bridle; }
-    public String getHat() { return hat; }
     public double getHorseConfidence() { return horseConfidence; }
     public double getHorseSpeed() { return horseSpeed; }
     public double getHorseStamina() { return horseStamina; }
