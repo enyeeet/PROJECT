@@ -36,6 +36,7 @@ public class HorseRaceGUI {
     private boolean lanesAndHorsesDesigned = false;
 
     private ArrayList<HorseDesignPage> totalHorseDesignPages;
+    private BettingPage bettingPage;
     private ArrayList<HorseData> horseDataList;
     private HashMap<String, HorsePerformance> horsePerformanceMap = new HashMap<>();
 
@@ -56,9 +57,7 @@ public class HorseRaceGUI {
 
         mainPanel.add(startMenu, "START MENU");
 
-        racePage = new StartRace(this);
-        mainPanel.add(racePage, "RACE PAGE");
-
+        mainPanel.add(new StartRace(this), "RACE PAGE");
         mainPanel.add(new LaneDesignPage(this), "LANE DESIGN PAGE");
 
         frame.add(mainPanel);
@@ -135,8 +134,9 @@ public class HorseRaceGUI {
         buttonPanel.add(betButton);
         buttonPanel.add(statsButton);
 
-        startRaceButton.addActionListener(e -> cardLayout.show(mainPanel, "RACE PAGE"));
-        designButton.addActionListener(e -> cardLayout.show(mainPanel, "LANE DESIGN PAGE"));
+        startRaceButton.addActionListener(e -> showRacePage());
+        designButton.addActionListener(e -> showLaneDesignPage());
+        betButton.addActionListener(e -> showBettingPage());
         
         ////////////////////////////////
         
@@ -215,11 +215,23 @@ public class HorseRaceGUI {
         cardLayout.show(mainPanel, "START MENU");
     }
 
+    public void showRacePage() {cardLayout.show(mainPanel, "RACE PAGE"); }
+
     public void showHorseDesignPage(){
         cardLayout.show(mainPanel, "HORSE DESIGN PAGE 1");
     }
 
     public void showLaneDesignPage(){
         cardLayout.show(mainPanel, "LANE DESIGN PAGE");
+    }
+
+    public void showBettingPage(){
+        if (horsePerformanceMap == null || horsePerformanceMap.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No horse data available for betting.");
+            return;
+        }
+        BettingPage newBettingPage = new BettingPage(this, new ArrayList<>(horsePerformanceMap.values()));
+        mainPanel.add(newBettingPage, "BETTING PAGE");
+        cardLayout.show(mainPanel, "BETTING PAGE");
     }
 }
