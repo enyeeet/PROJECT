@@ -30,7 +30,7 @@ public class InRaceHorse
     }
 
     public RaceResult generateResult(boolean isWinner, boolean didNotFinish) {
-        double finishTime = didNotFinish ? 0 : this.finishingTime;
+        double finishTime = didNotFinish ? 0 : getFinishingTime();
         double avgSpeed = didNotFinish ? 0 : mainGUI.getTrackLength() / finishTime;
 
         return new RaceResult(finishTime, avgSpeed, this.horseConfidence, isWinner, mainGUI.getTrackShape(), mainGUI.getTrackCondition(), didNotFinish);
@@ -52,7 +52,7 @@ public class InRaceHorse
     }
 
     public double getFinishingTime(){
-        return this.finishingTime;
+        return (this.finishingTime * 10);
     }
 
     public double getConfidence()
