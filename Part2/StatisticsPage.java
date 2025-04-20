@@ -46,7 +46,12 @@ public class StatisticsPage extends JFrame{
 
         // Stats Table Setup
         String[] columnNames = { "Race #", "Winner?", "Average Speed", "Finishing Time", "Win Ratio", "Confidence", "Track Shape", "Track Condition"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Make all cells non-editable
+            }
+        };
         statsTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(statsTable);
         add(scrollPane, BorderLayout.CENTER);
