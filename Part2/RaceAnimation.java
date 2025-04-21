@@ -134,6 +134,10 @@ public class RaceAnimation {
                 perf.addResult(result);
             }
         }
+        BettingPage bettingPage = mainGUI.getBettingPage();
+        if (bettingPage != null) {
+            bettingPage.evaluateBetAfterRace();
+        }
     }
 
     private void updateRaceUI(String endRaceMessage) {
@@ -209,7 +213,7 @@ public class RaceAnimation {
     }
 
     private boolean raceWonBy(InRaceHorse theHorse) {
-        return theHorse.getDistanceTravelled() == trackLength;
+        return !theHorse.hasFallen() && theHorse.getDistanceTravelled() == trackLength;
     }
 
     private int determineTrackUnits(int trackLength) {
