@@ -219,18 +219,18 @@ public class LaneDesignPage extends JPanel{
             noOfLanes = Integer.parseInt(laneInput.getText().trim());
             trackLength = Integer.parseInt(lengthInput.getText().trim());
 
-            if(noOfLanes <= 1 && trackLength < 100){
-                JOptionPane.showMessageDialog(this, "Your horse can't compete with itself... (No. of lanes must be >1)", "Input Error", JOptionPane.WARNING_MESSAGE);
-                JOptionPane.showMessageDialog(this, "Track length must be at least 100.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            if(noOfLanes <= 1 && trackLength < 1000){
+                JOptionPane.showMessageDialog(this, "Number of lanes must be >1", "Input Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Track length must be at least 1000 and not exceed 3000. \n(Due to limited budget we are only able to have a small track T_T)", "Input Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
             else if(noOfLanes <= 1){
-                JOptionPane.showMessageDialog(this, "Your horse can't compete with itself... (No. of lanes must be >1)", "Input Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Number of lanes must be >1", "Input Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            else if(trackLength < 100) {
-                JOptionPane.showMessageDialog(this, "Track length must be at least 100.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            else if(trackLength < 1000 || trackLength > 3000) {
+                JOptionPane.showMessageDialog(this, "Track length must be at least 1000 and not exceed 3000. \n(Due to limited budget we are only able to have a small track T_T)", "Input Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
         }
