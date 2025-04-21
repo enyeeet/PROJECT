@@ -70,10 +70,7 @@ public class BettingPage extends JPanel{
         horseSelector = new JComboBox<>();
         horseSelector.setPreferredSize(new Dimension(170,30));
         horseSelector.setFont(new Font(null, Font.PLAIN, 15));
-        for (HorsePerformance hp : performanceList) {
-            String odds = calculateOdds(hp);
-            horseSelector.addItem(hp.getHorseName() + " (Odds: " + odds + ")");
-        }
+        refreshOdds();
 
         JLabel amount = new JLabel("Amount:");
         amount.setFont(labelFont);
@@ -113,6 +110,13 @@ public class BettingPage extends JPanel{
         add(inputPanel, BorderLayout.CENTER);
     }
 
+    public void refreshOdds() {
+        horseSelector.removeAllItems();
+        for (HorsePerformance hp : performanceList) {
+            String odds = calculateOdds(hp);
+            horseSelector.addItem(hp.getHorseName() + " (Odds: " + odds + ")");
+        }
+    }
 
     private void processBet() {
         String selected = (String) horseSelector.getSelectedItem();
@@ -142,7 +146,7 @@ public class BettingPage extends JPanel{
                 JOptionPane.showMessageDialog(this, "Invalid bet amount.");
                 return;
             }
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Please enter a valid number.");
             return;
         }
@@ -159,7 +163,6 @@ public class BettingPage extends JPanel{
         JOptionPane.showMessageDialog(this, "Bet placed on " + horseName + " for the next race!");
     }
 
-
     public void updateBalance() {
         balanceLabel.setText("Balance: $" + String.format("%.2f", currencyBalance));
     }
@@ -173,7 +176,7 @@ public class BettingPage extends JPanel{
         RaceResult latestResult = history.get(history.size() - 1);
         if (latestResult.isWinner()) {
             double odds = Double.parseDouble(calculateOdds(pendingBetHorse));
-            double payout = pendingBetAmount * odds;
+            double payout = pendingBetAmount + (pendingBetAmount * odds);
             currencyBalance += payout;
             JOptionPane.showMessageDialog(this, "Your horse won! You earned $" + String.format("%.2f", payout));
         } else {
