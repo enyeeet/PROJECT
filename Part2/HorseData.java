@@ -118,6 +118,8 @@ public class HorseData {
 
     // Getters
     public String getName() { return name; }
+    public String getSymbol() { return symbol; }
+    public String getHorseShoes() { return horseShoes; }
     public double getHorseConfidence() { return horseConfidence; }
     public double getHorseSpeed() { return horseSpeed; }
     public double getHorseStamina() { return horseStamina; }
