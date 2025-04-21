@@ -225,13 +225,25 @@ public class HorseRaceGUI {
         cardLayout.show(mainPanel, "LANE DESIGN PAGE");
     }
 
-    public void showBettingPage(){
+    public void showBettingPage() {
         if (horsePerformanceMap == null || horsePerformanceMap.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "No horse data available for betting.");
+            JOptionPane.showMessageDialog(frame, "No horse data available for betting. Please start at least one race before betting.");
             return;
         }
-        BettingPage newBettingPage = new BettingPage(this, new ArrayList<>(horsePerformanceMap.values()));
-        mainPanel.add(newBettingPage, "BETTING PAGE");
+
+        if (bettingPage == null) {
+            bettingPage = new BettingPage(this, new ArrayList<>(horsePerformanceMap.values()));
+            mainPanel.add(bettingPage, "BETTING PAGE");
+        } else {
+            bettingPage.refreshOdds();
+            bettingPage.updateBalance();
+        }
+
         cardLayout.show(mainPanel, "BETTING PAGE");
+    }
+
+
+    public BettingPage getBettingPage(){
+        return bettingPage;
     }
 }
