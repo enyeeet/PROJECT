@@ -15,6 +15,10 @@ public class BettingPage extends JPanel{
     private JTextField amountField;
     private double currencyBalance = 1000.0;
 
+    private HorsePerformance pendingBetHorse = null;
+    private double pendingBetAmount = 0.0;
+    private boolean hasPendingBet = false;
+
     BettingPage(HorseRaceGUI mainGUI, ArrayList<HorsePerformance> performanceList){
         this.mainGUI = mainGUI;
         this.performanceList = performanceList;
@@ -109,6 +113,78 @@ public class BettingPage extends JPanel{
         add(inputPanel, BorderLayout.CENTER);
     }
 
+
+    private void processBet() {
+        String selected = (String) horseSelector.getSelectedItem();
+        if (selected == null || selected.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select a horse.");
+            return;
+        }
+
+        String horseName = selected.split(" \\(Odds")[0];
+        HorsePerformance selectedHorse = null;
+        for (HorsePerformance hp : performanceList) {
+            if (hp.getHorseName().equals(horseName)) {
+                selectedHorse = hp;
+                break;
+            }
+        }
+
+        if (selectedHorse == null) {
+            JOptionPane.showMessageDialog(this, "Selected horse not found.");
+            return;
+        }
+
+        double betAmount;
+        try {
+            betAmount = Double.parseDouble(amountField.getText());
+            if (betAmount <= 0 || betAmount > currencyBalance) {
+                JOptionPane.showMessageDialog(this, "Invalid bet amount.");
+                return;
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+            return;
+        }
+
+        // Deduct balance now
+        currencyBalance -= betAmount;
+        updateBalance();
+
+        // Store the bet for the next race
+        pendingBetHorse = selectedHorse;
+        pendingBetAmount = betAmount;
+        hasPendingBet = true;
+
+        JOptionPane.showMessageDialog(this, "Bet placed on " + horseName + " for the next race!");
+    }
+
+
+    public void updateBalance() {
+        balanceLabel.setText("Balance: $" + String.format("%.2f", currencyBalance));
+    }
+
+    public void evaluateBetAfterRace() {
+        if (!hasPendingBet || pendingBetHorse == null) return;
+
+        ArrayList<RaceResult> history = pendingBetHorse.getRaceHistory();
+        if (history.isEmpty()) return;
+
+        RaceResult latestResult = history.get(history.size() - 1);
+        if (latestResult.isWinner()) {
+            double odds = Double.parseDouble(calculateOdds(pendingBetHorse));
+            double payout = pendingBetAmount * odds;
+            currencyBalance += payout;
+            JOptionPane.showMessageDialog(this, "Your horse won! You earned $" + String.format("%.2f", payout));
+        } else {
+            JOptionPane.showMessageDialog(this, "Your horse lost the race. Better luck next time!");
+        }
+
+        hasPendingBet = false;
+        pendingBetHorse = null;
+        pendingBetAmount = 0.0;
+        updateBalance();
+    }
 
 
     public int winRatioRating (HorsePerformance hp){
