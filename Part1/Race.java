@@ -60,9 +60,8 @@ public class Race
         return isValidConfidence(lane1Horse) && isValidConfidence(lane2Horse) && isValidConfidence(lane3Horse);
     }
 
-    // Method to check if a horse has a valid confidence rating
     private boolean isValidConfidence(Horse horse) {
-        return horse != null && horse.getConfidence() >= 0.0 && horse.getConfidence() <= 1.0;
+        return horse != null && horse.getConfidence() > 0.0 && horse.getConfidence() <= 1.0;
     }
 
     /**
@@ -120,7 +119,6 @@ public class Race
 
             if(winner != null){
                 System.out.println("And the winner is... " + winner.getName().toUpperCase()+ "!!!");
-                winner.increaseConfidence(0.05);
             }
         }
     }
@@ -152,6 +150,10 @@ public class Race
                 theHorse.fall();
             }
         }
+
+        if(raceWonBy(theHorse)){
+            theHorse.increaseConfidence(0.05);
+        }
     }
         
     /** 
@@ -162,14 +164,7 @@ public class Race
      */
     private boolean raceWonBy(Horse theHorse)
     {
-        if (theHorse.getDistanceTravelled() == raceLength)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return !theHorse.hasFallen() && theHorse.getDistanceTravelled() == raceLength;
     }
     
     /***
@@ -177,7 +172,7 @@ public class Race
      */
     private void printRace()
     {
-        System.out.print('\u000C');  //clear the terminal window
+        //System.out.print('\u000C');  //clear the terminal window
         
         multiplePrint('=',raceLength+3); //top edge of track
         System.out.println();
