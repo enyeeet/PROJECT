@@ -35,7 +35,12 @@ public class HorsePerformance {
     }
 
     public double getWinRatio() {
-        winRatio = totalRaces == 0 ? 0 : (double) this.racesWon / this.totalRaces;
+        if(this.racesWon == 0){
+            winRatio = 0.0;
+        }
+        else{
+            winRatio = totalRaces == 0 ? 0 : (double) this.racesWon / this.totalRaces;
+        }
         return winRatio;
     }
 
