@@ -9,8 +9,7 @@ PART 1
 1. Install the folder named "Part1" onto your computer. There should be a total of 2 java files.
 2. If using command line, navigate to the directory where your files are downloaded, compile the java files into class files using this line: javac Horse.java Race.java
 3. Then run the race by using: java Race
-4. If you wish to use your own horse names and attributes, simply open the Race.java file in notepad and edit the main method where the constructor for Horse is used. Recompile your Race.java file after that and run the race.
-5. Note that this textual version is limited to a three lane/horse race.
+4. If you wish to customise your lanes and horses, simply open the Race.java file in notepad and edit the main method where the raceLength, numberOfLanes and constructor for Horse is used. Recompile your Race.java file after that and run the race.
 
 
 PART 2
