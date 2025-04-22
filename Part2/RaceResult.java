@@ -1,4 +1,3 @@
-package Part2;
 
 public class RaceResult {
     private HorsePerformance horsePerformance;
