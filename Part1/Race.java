@@ -39,7 +39,6 @@ public class Race
         horseRace.addHorse(new Horse('B', "Lightning", 0.4), 2);
         horseRace.addHorse(new Horse('C', "Blaze", 0.6), 3);
 
-        // Start the race
         horseRace.startRace();
     }
 
