@@ -30,6 +30,19 @@ public class Race
         lane3Horse = null;
     }
 
+    public static void main(String[] args) {
+        // Create the Race object with a track length of 20 units
+        Race horseRace = new Race(20);
+
+        // Add three horses to different lanes
+        horseRace.addHorse(new Horse('A', "Thunder", 0.5), 1);
+        horseRace.addHorse(new Horse('B', "Lightning", 0.4), 2);
+        horseRace.addHorse(new Horse('C', "Blaze", 0.6), 3);
+
+        // Start the race
+        horseRace.startRace();
+    }
+
     /**
      * Adds a horse to the race in a given lane
      *
