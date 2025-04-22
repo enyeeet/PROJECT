@@ -10,6 +10,7 @@ public class Race {
         this.lanes = new Horse[numberOfLanes];
     }
 
+    //
     public static void main(String[] args) {
         int raceLength   = 20;
         int lanesCount = 4;
