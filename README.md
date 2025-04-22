@@ -2,6 +2,7 @@ DEPENDENCIES FOR BOTH MODULES
 1. Java Development Kit (JDK) 23 is required. You can install the respective version depending on your operating system here: https://www.oracle.com/java/technologies/javase/jdk23-archive-downloads.html
    Make sure to configure your IDE accordingly if using an older version previously.
 2. And of course, make sure your IDE is configured to support Java. If not, download the required extension for your respective IDE.
+
    VS Code:
    - In the extensions page, search up "Extention Pack for Java". It should be the one by Microsoft.
    - Install the extension and restart your IDE if needed.
