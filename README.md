@@ -13,21 +13,28 @@ DEPENDENCIES FOR BOTH MODULES
 
 PART 1
 1. Install the folder named "Part1" onto your computer. There should be a total of 2 java files.
-2. If using an IDE, import the folder and open both java files. Create a main method (either within one of the provided classes or a separate class) with your desired horse attributes like so:
+2. If using an IDE, import the folder and open both java files. Create a main method (in a separate class) with your desired horse attributes like so:
    
    public class Main {
+   
     public static void main(String[] args) {
+   
         Race horseRace = new Race(20);    // Create the Race object with a track length of 20 units
+   
         horseRace.addHorse(new Horse('A', "Thunder", 0.5), 1);
+   
         horseRace.addHorse(new Horse('B', "Lightning", 0.4), 2);
+   
         horseRace.addHorse(new Horse('C', "Blaze", 0.6), 3);
+   
         horseRace.startRace();
+   
       }
   }
   
-3. If using command line, navigate to the directory where your files are downloaded, compile the java files into class files using this line: javac Horse.java Race.java Main.java
-4. Then, run the main method using: java Main
-5. Note that this textual version is limited to a three lane/horse race.
+4. If using command line, navigate to the directory where your files are downloaded, compile the java files into class files using this line: javac Horse.java Race.java Main.java
+5. Then, run the main method using: java Main
+6. Note that this textual version is limited to a three lane/horse race.
 
 
 PART 2
