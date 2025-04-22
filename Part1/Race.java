@@ -13,9 +13,9 @@ public class Race {
     //
     public static void main(String[] args) {
         int raceLength   = 20;
-        int lanesCount = 4;
+        int numberOfLanes = 4;
 
-        Race horseRace = new Race(raceLength, lanesCount);
+        Race horseRace = new Race(raceLength, numberOfLanes);
 
         horseRace.addHorse(new Horse('A', "Thunder",   0.5), 1);
         horseRace.addHorse(new Horse('B', "Lightning", 0.4), 2);
