@@ -1,5 +1,3 @@
-package Part2;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -75,7 +73,7 @@ public class BettingPage extends JPanel{
         JLabel amount = new JLabel("Amount:");
         amount.setFont(labelFont);
 
-        amountField = new JTextField(10);
+        amountField = new JTextField(13);
         amountField.setFont(new Font("Arial", Font.PLAIN, 15));
         amountField.setHorizontalAlignment(JTextField.CENTER);
         amountField.setPreferredSize(new Dimension(100,25));
