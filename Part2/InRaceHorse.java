@@ -1,5 +1,3 @@
-package Part2;
-
 public class InRaceHorse
 {
     private HorseRaceGUI mainGUI;
