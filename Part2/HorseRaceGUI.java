@@ -42,6 +42,7 @@ public class HorseRaceGUI {
         frame = new JFrame("Horse Racing Simulator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 650);
+        frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         
         cardLayout = new CardLayout();   //switching between 'pages'
