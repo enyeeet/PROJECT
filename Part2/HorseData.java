@@ -1,5 +1,3 @@
-package Part2;
-
 public class HorseData {
     private String name;
     private String breed;
@@ -72,13 +70,19 @@ public class HorseData {
     }
 
     public void trackShapeEffect(){
-        if(trackShape.equals("Oval")){
-            this.horseSpeed += 0.1;
-            this.horseConfidence += 0.1;
-        }
-        else if(trackShape.equals("Figure Eight")){
-            this.horseSpeed += 0.2;
-            this.horseConfidence += 0.2;
+        switch (trackShape) {
+            case "Oval" -> {
+                this.horseSpeed += 0.1;
+                this.horseConfidence += 0.1;
+            }
+            case "Figure Eight" -> {
+                this.horseSpeed -= 0.2;
+                this.horseConfidence += 0.1;
+            }
+            case "Zig-Zag" -> {
+                this.horseSpeed -= 0.2;
+                this.horseConfidence -= 0.1;
+            }
         }
     }
 
