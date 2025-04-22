@@ -11,7 +11,7 @@ DEPENDENCIES FOR BOTH MODULES
     
 
 PART 1
-1. Install the folder named "Part1" onto your computer. There should be 2 files contained in it. (Horse.java and Race.java)
+1. Install the folder named "Part1" onto your computer. There should be a total of 2 java files.
 2. If using an IDE, import the folder and open both java files. Create a main method (either within one of the provided classes or a separate class) with your desired horse attributes like so:
    
    public class Main {
@@ -30,7 +30,7 @@ PART 1
 
 
 PART 2
-1. Install the folder named Part2 onto your computer. There should be a total of 12 java files.
+1. Install the folder named Part2 onto your computer. There should be a total of 11 java files.
 2. Import the folder into an IDE, and open the java file named "HorseRaceGUI".
 3. Run the file. The application should start on your computer.
 4. Upon startup, you will see that the "Start Race" button is not clickable. You will have to first design your lanes and horses before you can start a race.
