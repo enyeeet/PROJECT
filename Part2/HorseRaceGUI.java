@@ -1,5 +1,3 @@
-package Part2;
-
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -87,7 +85,7 @@ public class HorseRaceGUI {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1, 15, 15));
         buttonPanel.setBackground(Color.WHITE);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(90, 240, 90, 240));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(90, 260, 90, 260));
 
         Font buttonFont = new Font("Arial", Font.BOLD, 15);
 
