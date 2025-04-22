@@ -62,6 +62,10 @@ public class HorseRaceGUI {
         frame.setVisible(true);
     }
 
+    public static void main(String[] args){
+        new HorseRaceGUI();
+    }
+
     private void createStartMenu(){
         gameTitle = new JLabel("Horse Racing", SwingConstants.CENTER);
         gameTitle.setFont(new Font("Ink Free", Font.BOLD, 60));
