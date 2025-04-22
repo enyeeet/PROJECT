@@ -1,5 +1,3 @@
-package Part2;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -111,13 +109,9 @@ public class LaneDesignPage extends JPanel{
         //
         JLabel shapeLabel = new JLabel("Shape of track:   ");
         shapeLabel.setFont(labelFont);
-        shapeInput = new JComboBox<>(new String[]{"Oval", "Figure Eight"});
+        shapeInput = new JComboBox<>(new String[]{"Oval", "Figure Eight", "Zig-Zag"});
         shapeInput.setPreferredSize(new Dimension(110,25));
         shapeInput.setFont(new Font(null, Font.PLAIN, 15));
-        JLabel orLabel = new JLabel("OR");
-        orLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-        designYourOwn = new JButton("Design Your Own");
-
 
 
         //Track conditions
@@ -174,14 +168,6 @@ public class LaneDesignPage extends JPanel{
         gbc.gridx = 1;
         gbc.gridy = 2;
         inputPanel.add(shapeInput, gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        inputPanel.add(orLabel, gbc);
-
-        gbc.gridx = 3;
-        gbc.gridy = 2;
-        inputPanel.add(designYourOwn, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
