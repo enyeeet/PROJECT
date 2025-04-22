@@ -18,7 +18,8 @@ PART 1
 2. If using an IDE, import the folder and open both java files. Run the Race class and the race should start.
 3. If using command line, navigate to the directory where your files are downloaded, compile the java files into class files using this line: javac Horse.java Race.java
 4. Then run the race by using: java Race
-5. Note that this textual version is limited to a three lane/horse race.
+5. If you wish to use your own horse names and attributes, simply open the Race.java file in notepad and edit the main method where the constructor for Horse is used. Recompile your Race.java file after that and run the race.
+6. Note that this textual version is limited to a three lane/horse race.
 
 
 PART 2
