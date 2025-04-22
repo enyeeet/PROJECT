@@ -2,7 +2,7 @@ DEPENDENCIES FOR BOTH MODULES
 1. Java Development Kit (JDK) 23 is required. You can install the respective version depending on your operating system here: https://www.oracle.com/java/technologies/javase/jdk23-archive-downloads.html
    If using an IDE, make sure to configure your IDE accordingly if using an older version previously.
    However both modules are designed to work without the support of IDEs so only the command line is absolutely necessary.
-2. Most importantly you need to know how to use the command line. This guide will only be for windows as this is the operating system I am using. In the search bar in start menu type in "cmd" and the command propmt option should appear. In the command line, navigate to where    your folder is located using "cd (file path)". For example if your folder is located in your desktop you would use "cd Desktop\HorseRaceSimulator". Once in the correct folder, you can start using java commands such as javac and java for compiling and running.
+2. Most importantly you need to know how to use the command line. This guide will only be for windows as this is the operating system I am using. In the search bar of the start menu type in "cmd" and the command prompt option should appear. In the command line, navigate to where    your folder is located using "cd (file path)". For example if your folder is located in your desktop you would use "cd Desktop\HorseRaceSimulator". Once in the correct folder, you can start using java commands such as javac and java for compiling and running.
 3. And of course for IDEs, make sure your IDE is configured to support Java. If not, download the required extension for your respective IDE.
 
    VS Code:
